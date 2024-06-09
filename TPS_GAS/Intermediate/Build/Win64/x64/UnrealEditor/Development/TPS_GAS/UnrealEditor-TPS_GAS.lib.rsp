@@ -7,11 +7,17 @@
 /IGNORE:4221
 /NODEFAULTLIB
 "D:\Dev\Unreal Engine Projects\AdvancedUe5Gpp\MultiplayerGppConcepts\TPS_GAS\Intermediate\Build\Win64\x64\TPS_GASEditor\Development\UnrealEd\SharedPCH.UnrealEd.Cpp20.h.obj"
+"D:\Dev\Unreal Engine Projects\AdvancedUe5Gpp\MultiplayerGppConcepts\TPS_GAS\Intermediate\Build\Win64\x64\UnrealEditor\Development\TPS_GAS\PlayerAbilitySystemComponent.gen.cpp.obj"
+"D:\Dev\Unreal Engine Projects\AdvancedUe5Gpp\MultiplayerGppConcepts\TPS_GAS\Intermediate\Build\Win64\x64\UnrealEditor\Development\TPS_GAS\PlayerBaseAttributeSet.gen.cpp.obj"
+"D:\Dev\Unreal Engine Projects\AdvancedUe5Gpp\MultiplayerGppConcepts\TPS_GAS\Intermediate\Build\Win64\x64\UnrealEditor\Development\TPS_GAS\TPS_GameInstance.gen.cpp.obj"
 "D:\Dev\Unreal Engine Projects\AdvancedUe5Gpp\MultiplayerGppConcepts\TPS_GAS\Intermediate\Build\Win64\x64\UnrealEditor\Development\TPS_GAS\TPS_GAS.init.gen.cpp.obj"
 "D:\Dev\Unreal Engine Projects\AdvancedUe5Gpp\MultiplayerGppConcepts\TPS_GAS\Intermediate\Build\Win64\x64\UnrealEditor\Development\TPS_GAS\TPS_GASCharacter.gen.cpp.obj"
 "D:\Dev\Unreal Engine Projects\AdvancedUe5Gpp\MultiplayerGppConcepts\TPS_GAS\Intermediate\Build\Win64\x64\UnrealEditor\Development\TPS_GAS\TPS_GASGameMode.gen.cpp.obj"
 "D:\Dev\Unreal Engine Projects\AdvancedUe5Gpp\MultiplayerGppConcepts\TPS_GAS\Intermediate\Build\Win64\x64\UnrealEditor\Development\TPS_GAS\TPS_GAS.cpp.obj"
 "D:\Dev\Unreal Engine Projects\AdvancedUe5Gpp\MultiplayerGppConcepts\TPS_GAS\Intermediate\Build\Win64\x64\UnrealEditor\Development\TPS_GAS\TPS_GASCharacter.cpp.obj"
 "D:\Dev\Unreal Engine Projects\AdvancedUe5Gpp\MultiplayerGppConcepts\TPS_GAS\Intermediate\Build\Win64\x64\UnrealEditor\Development\TPS_GAS\TPS_GASGameMode.cpp.obj"
+"D:\Dev\Unreal Engine Projects\AdvancedUe5Gpp\MultiplayerGppConcepts\TPS_GAS\Intermediate\Build\Win64\x64\UnrealEditor\Development\TPS_GAS\TPS_GameInstance.cpp.obj"
+"D:\Dev\Unreal Engine Projects\AdvancedUe5Gpp\MultiplayerGppConcepts\TPS_GAS\Intermediate\Build\Win64\x64\UnrealEditor\Development\TPS_GAS\PlayerAbilitySystemComponent.cpp.obj"
+"D:\Dev\Unreal Engine Projects\AdvancedUe5Gpp\MultiplayerGppConcepts\TPS_GAS\Intermediate\Build\Win64\x64\UnrealEditor\Development\TPS_GAS\PlayerBaseAttributeSet.cpp.obj"
 "D:\Dev\Unreal Engine Projects\AdvancedUe5Gpp\MultiplayerGppConcepts\TPS_GAS\Intermediate\Build\Win64\x64\UnrealEditor\Development\TPS_GAS\Default.rc2.res"
 /OUT:"D:\Dev\Unreal Engine Projects\AdvancedUe5Gpp\MultiplayerGppConcepts\TPS_GAS\Intermediate\Build\Win64\x64\UnrealEditor\Development\TPS_GAS\UnrealEditor-TPS_GAS.lib"

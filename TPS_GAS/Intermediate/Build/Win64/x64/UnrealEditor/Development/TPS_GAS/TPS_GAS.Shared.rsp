@@ -1,4 +1,5 @@
 /I "."
+/I "D:\Dev\Unreal Engine Projects\AdvancedUe5Gpp\MultiplayerGppConcepts\TPS_GAS\Source\TPS_GAS\Private"
 /I "..\Intermediate\Build\Win64\UnrealEditor\Inc\Slate\UHT"
 /I "Runtime\Slate\Public"
 /I "Runtime\Core\Public"
@@ -275,6 +276,7 @@
 /I "Runtime\AIModule\Public"
 /I "D:\Dev\Unreal Engine Projects\AdvancedUe5Gpp\MultiplayerGppConcepts\TPS_GAS\Intermediate\Build\Win64\UnrealEditor\Inc\TPS_GAS\UHT"
 /I "D:\Dev\Unreal Engine Projects\AdvancedUe5Gpp\MultiplayerGppConcepts\TPS_GAS\Source"
+/I "D:\Dev\Unreal Engine Projects\AdvancedUe5Gpp\MultiplayerGppConcepts\TPS_GAS\Source\TPS_GAS\Public"
 /I "..\Plugins\EnhancedInput\Intermediate\Build\Win64\UnrealEditor\Inc\EnhancedInput\UHT"
 /I "..\Plugins\EnhancedInput\Source\EnhancedInput\Public"
 /external:W0

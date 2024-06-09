@@ -54,5 +54,41 @@
     <ClInclude Include="..\..\Source\TPS_GAS\TPS_GASGameMode.h">
       <Filter>Source\TPS_GAS</Filter>
     </ClInclude>
+    <Filter Include="Source\TPS_GAS\Private">
+      <UniqueIdentifier>{831C8BAF-F9AC-3B65-A77E-457E3153133E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\TPS_GAS\Private\Common">
+      <UniqueIdentifier>{CB564080-A330-39E8-9B9D-ABC7EFDB83CC}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\TPS_GAS\Private\Common\TPS_GameInstance.cpp">
+      <Filter>Source\TPS_GAS\Private\Common</Filter>
+    </ClCompile>
+    <Filter Include="Source\TPS_GAS\Private\GAS">
+      <UniqueIdentifier>{56DBE11A-871B-39C2-847B-19DE7AF11CE6}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\TPS_GAS\Private\GAS\PlayerAbilitySystemComponent.cpp">
+      <Filter>Source\TPS_GAS\Private\GAS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\TPS_GAS\Private\GAS\PlayerBaseAttributeSet.cpp">
+      <Filter>Source\TPS_GAS\Private\GAS</Filter>
+    </ClCompile>
+    <Filter Include="Source\TPS_GAS\Public">
+      <UniqueIdentifier>{31A67773-F0F4-3CD4-A22E-1145A4E6EB55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\TPS_GAS\Public\Common">
+      <UniqueIdentifier>{9319B883-4DF4-39D4-8AD4-BCF4A09B7C07}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\TPS_GAS\Public\Common\TPS_GameInstance.h">
+      <Filter>Source\TPS_GAS\Public\Common</Filter>
+    </ClInclude>
+    <Filter Include="Source\TPS_GAS\Public\GAS">
+      <UniqueIdentifier>{A3E2AF09-B908-3F9D-A7BA-29A1EDBAEE56}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\TPS_GAS\Public\GAS\PlayerAbilitySystemComponent.h">
+      <Filter>Source\TPS_GAS\Public\GAS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\TPS_GAS\Public\GAS\PlayerBaseAttributeSet.h">
+      <Filter>Source\TPS_GAS\Public\GAS</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

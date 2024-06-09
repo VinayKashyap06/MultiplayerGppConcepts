@@ -1212,3 +1212,137 @@ BUILD FAILED
 [2024.06.09-08.25.44:937][514]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called. InstanceID=2
 [2024.06.09-08.25.44:943][514]LogUObjectHash: Compacting FUObjectHashTables data took   0.37ms
 [2024.06.09-08.25.45:004][517]LogPlayLevel: Display: Destroying online subsystem :Context_1
+[2024.06.09-08.26.33:723][ 38]LogSlate: Took 0.004858 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-BoldCondensed.ttf' (158K)
+[2024.06.09-08.26.57:684][447]Running C:/Program Files/Epic Games/UE_5.3/Engine/Build/BatchFiles/Build.bat  -projectfiles -project="D:/Dev/Unreal Engine Projects/AdvancedUe5Gpp/MultiplayerGppConcepts/TPS_GAS/TPS_GAS.uproject" -game -rocket -progress
+[2024.06.09-08.26.57:790][447]Using bundled DotNet SDK version: 6.0.302
+[2024.06.09-08.26.57:790][447]Running UnrealBuildTool: dotnet "..\..\Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildTool.dll" -projectfiles -project="D:/Dev/Unreal Engine Projects/AdvancedUe5Gpp/MultiplayerGppConcepts/TPS_GAS/TPS_GAS.uproject" -game -rocket -progress
+[2024.06.09-08.26.58:091][447]Log file: C:\Users\vinay\AppData\Local\UnrealBuildTool\Log_GPF.txt
+[2024.06.09-08.26.58:393][447]
+[2024.06.09-08.26.58:393][447]Some Platforms were skipped due to invalid SDK setup: IOS, Android, Linux, LinuxArm64.
+[2024.06.09-08.26.58:393][447]See the log file for detailed information
+[2024.06.09-08.26.58:393][447]
+[2024.06.09-08.26.58:393][447]
+[2024.06.09-08.26.58:393][447]Generating VisualStudio project files:
+[2024.06.09-08.26.58:393][447]Discovering modules, targets and source code for project...
+[2024.06.09-08.26.59:197][447]Binding IntelliSense data...
+[2024.06.09-08.27.01:242][447]Binding IntelliSense data... 100%
+[2024.06.09-08.27.01:242][447]Creating common properties file...
+[2024.06.09-08.27.01:242][447]Creating common properties file... 0%
+[2024.06.09-08.27.01:242][447]Writing project files...
+[2024.06.09-08.27.02:276][447]Writing project files... 100%
+[2024.06.09-08.27.02:276][447]
+[2024.06.09-08.27.02:276][447]Generating QueryTargets data for editor...
+[2024.06.09-08.27.19:737][447]LogAudioDerivedData: Display: Building compressed audio format BINKA hash BINKA_SCVER_5028_R4DV_false_SR0_48000.000000_SR1_32000.000000_SR2_24000.000000_SR3_12000.000000_SR4_8000.000000_QMOD_1.000000_CQLT_-1_ASTH_0.000000_INLC_false_CSZE_65536_LCF_false_ZCS_0_MCSO_0_END wave CompileSuccess...
+[2024.06.09-08.27.19:740][447]LogAudio: Display: Chunk sizes for SoundWave /Engine/EditorSounds/Notifications/CompileSuccess.CompileSuccess: Chunk0=28 bytes, Chunk1-N=256k
+[2024.06.09-08.27.19:805][447]Candidate modules for hot reload:
+[2024.06.09-08.27.19:805][447]  TPS_GAS
+[2024.06.09-08.27.19:810][447]Launching UnrealBuildTool... [C:/Program Files/Epic Games/UE_5.3/Engine/Build/BatchFiles/Build.bat  -ModuleWithSuffix=TPS_GAS,6387 TPS_GASEditor Win64 Development -Project="D:/Dev/Unreal Engine Projects/AdvancedUe5Gpp/MultiplayerGppConcepts/TPS_GAS/TPS_GAS.uproject" "D:/Dev/Unreal Engine Projects/AdvancedUe5Gpp/MultiplayerGppConcepts/TPS_GAS/TPS_GAS.uproject"  -IgnoreJunk]
+[2024.06.09-08.27.32:338][447]LogDerivedDataCache: C:/Users/vinay/AppData/Local/UnrealEngine/Common/DerivedDataCache: Maintenance finished in +00:00:02.068 and deleted 0 files with total size 0 MiB and 0 empty folders. Scanned 1571 files in 2470 folders with total size 112 MiB.
+[2024.06.09-08.27.34:870][447]CompilerResultsLog: New page: Compilation - 09-Jun-2024, 7:27:34 pm
+[2024.06.09-08.27.34:910][447]CompilerResultsLog: Using bundled DotNet SDK version: 6.0.302
+[2024.06.09-08.27.34:916][447]CompilerResultsLog: Running UnrealBuildTool: dotnet "..\..\Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildTool.dll" -ModuleWithSuffix=TPS_GAS,6387 TPS_GASEditor Win64 Development -Project="D:/Dev/Unreal Engine Projects/AdvancedUe5Gpp/MultiplayerGppConcepts/TPS_GAS/TPS_GAS.uproject" "D:/Dev/Unreal Engine Projects/AdvancedUe5Gpp/MultiplayerGppConcepts/TPS_GAS/TPS_GAS.uproject"  -IgnoreJunk
+[2024.06.09-08.27.34:931][447]CompilerResultsLog: Log file: C:\Users\vinay\AppData\Local\UnrealBuildTool\Log.txt
+[2024.06.09-08.27.34:931][447]CompilerResultsLog: Using 'git status' to determine working set for adaptive non-unity build (D:\Dev\Unreal Engine Projects\AdvancedUe5Gpp\MultiplayerGppConcepts).
+[2024.06.09-08.27.34:931][447]CompilerResultsLog: Creating makefile for TPS_GASEditor (no existing makefile)
+[2024.06.09-08.27.34:931][447]CompilerResultsLog: Parsing headers for TPS_GASEditor
+[2024.06.09-08.27.34:931][447]CompilerResultsLog:   Running Internal UnrealHeaderTool "D:\Dev\Unreal Engine Projects\AdvancedUe5Gpp\MultiplayerGppConcepts\TPS_GAS\TPS_GAS.uproject" "D:\Dev\Unreal Engine Projects\AdvancedUe5Gpp\MultiplayerGppConcepts\TPS_GAS\Intermediate\Build\Win64\TPS_GASEditor\Development\TPS_GASEditor.uhtmanifest" -WarningsAsErrors -installed
+[2024.06.09-08.27.34:931][447]CompilerResultsLog: Total of 3 written
+[2024.06.09-08.27.34:931][447]CompilerResultsLog: Reflection code generated for TPS_GASEditor in 1.4869433 seconds
+[2024.06.09-08.27.34:931][447]CompilerResultsLog: Building TPS_GASEditor...
+[2024.06.09-08.27.34:931][447]CompilerResultsLog: Using Visual Studio 2022 14.36.32545 toolchain (C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532) and Windows 10.0.22621.0 SDK (C:\Program Files (x86)\Windows Kits\10).
+[2024.06.09-08.27.34:931][447]CompilerResultsLog: Determining max actions to execute in parallel (8 physical cores, 16 logical cores)
+[2024.06.09-08.27.34:931][447]CompilerResultsLog:   Executing up to 8 processes, one per physical core
+[2024.06.09-08.27.34:931][447]CompilerResultsLog: ------ Building 11 action(s) started ------
+[2024.06.09-08.27.34:931][447]CompilerResultsLog: [1/11] Compile [x64] TPS_GAS.cpp
+[2024.06.09-08.27.34:931][447]CompilerResultsLog: [2/11] Compile [x64] TPS_GASGameMode.gen.cpp
+[2024.06.09-08.27.34:931][447]CompilerResultsLog: [3/11] Compile [x64] TPS_GASCharacter.gen.cpp
+[2024.06.09-08.27.34:931][447]CompilerResultsLog: [4/11] Compile [x64] TPS_GASGameMode.cpp
+[2024.06.09-08.27.34:931][447]CompilerResultsLog: [5/11] Compile [x64] TPS_GASCharacter.cpp
+[2024.06.09-08.27.34:931][447]CompilerResultsLog: [6/11] Compile [x64] PlayerAbilitySystemComponent.gen.cpp
+[2024.06.09-08.27.34:931][447]CompilerResultsLog: [7/11] Compile [x64] TPS_GAS.init.gen.cpp
+[2024.06.09-08.27.34:931][447]CompilerResultsLog: [8/11] Compile [x64] PlayerAbilitySystemComponent.cpp
+[2024.06.09-08.27.34:931][447]CompilerResultsLog: [9/11] Link [x64] UnrealEditor-TPS_GAS-6387.lib
+[2024.06.09-08.27.34:931][447]CompilerResultsLog:    Creating library D:\Dev\Unreal Engine Projects\AdvancedUe5Gpp\MultiplayerGppConcepts\TPS_GAS\Intermediate\Build\Win64\x64\UnrealEditor\Development\TPS_GAS\UnrealEditor-TPS_GAS-6387.lib and object D:\Dev\Unreal Engine Projects\AdvancedUe5Gpp\MultiplayerGppConcepts\TPS_GAS\Intermediate\Build\Win64\x64\UnrealEditor\Development\TPS_GAS\UnrealEditor-TPS_GAS-6387.exp
+[2024.06.09-08.27.34:932][447]CompilerResultsLog: [10/11] Link [x64] UnrealEditor-TPS_GAS-6387.dll
+[2024.06.09-08.27.34:935][447]CompilerResultsLog:    Creating library D:\Dev\Unreal Engine Projects\AdvancedUe5Gpp\MultiplayerGppConcepts\TPS_GAS\Intermediate\Build\Win64\x64\UnrealEditor\Development\TPS_GAS\UnrealEditor-TPS_GAS-6387.sup.lib and object D:\Dev\Unreal Engine Projects\AdvancedUe5Gpp\MultiplayerGppConcepts\TPS_GAS\Intermediate\Build\Win64\x64\UnrealEditor\Development\TPS_GAS\UnrealEditor-TPS_GAS-6387.sup.exp
+[2024.06.09-08.27.34:936][447]CompilerResultsLog: [11/11] WriteMetadata TPS_GASEditor.target
+[2024.06.09-08.27.34:940][447]CompilerResultsLog: Total time in Parallel executor: 8.08 seconds
+[2024.06.09-08.27.34:940][447]CompilerResultsLog: Total execution time: 12.54 seconds
+[2024.06.09-08.27.34:940][447]LogMainFrame: MainFrame: Module compiling took 15.148 seconds
+[2024.06.09-08.27.35:650][447]LogUObjectHash: Compacting FUObjectHashTables data took  28.09ms
+[2024.06.09-08.27.36:150][447]LogClass: UPackage /Script/TPS_GAS Reload.
+[2024.06.09-08.27.36:150][447]LogClass: Could not find existing class PlayerAbilitySystemComponent in package /Script/TPS_GAS for reload, assuming new or modified class
+[2024.06.09-08.27.36:199][447]LogUObjectHash: Compacting FUObjectHashTables data took   0.42ms
+[2024.06.09-08.27.36:225][447]Display: HotReload took 33.6s.
+[2024.06.09-08.27.36:225][447]Display: Reload/Re-instancing Complete: 1 package changed, 1 class new, 2 classes unchanged
+[2024.06.09-08.27.36:234][447]Warning: HotReload operation took 33.7s.
+[2024.06.09-08.27.36:373][447]LogSlate: Window 'Add C++ Class' being destroyed
+[2024.06.09-08.27.37:133][447]LogHotReload: New module detected: UnrealEditor-TPS_GAS-6387.dll
+[2024.06.09-08.27.37:240][448]LogAutomationController: Ignoring very large delta of 39.91 seconds in calls to FAutomationControllerManager::Tick() and not penalizing unresponsive tests
+[2024.06.09-08.27.37:241][448]LogHotReload: Starting Hot-Reload from IDE
+[2024.06.09-08.27.37:378][448]LogUObjectHash: Compacting FUObjectHashTables data took   0.20ms
+[2024.06.09-08.27.37:412][448]LogUObjectHash: Compacting FUObjectHashTables data took   0.26ms
+[2024.06.09-08.27.40:030][448]Display: HotReload took  2.8s.
+[2024.06.09-08.27.40:030][448]Display: Reload/Re-instancing Complete: No object changes detected
+[2024.06.09-08.27.40:738][449]LogAutomationController: Ignoring very large delta of 3.50 seconds in calls to FAutomationControllerManager::Tick() and not penalizing unresponsive tests
+[2024.06.09-08.27.41:329][449]LogAudioMixer: Display: Audio Buffer Underrun (starvation) detected. InstanceID=1
+[2024.06.09-08.28.38:204][874]Running C:/Program Files/Epic Games/UE_5.3/Engine/Build/BatchFiles/Build.bat  -projectfiles -project="D:/Dev/Unreal Engine Projects/AdvancedUe5Gpp/MultiplayerGppConcepts/TPS_GAS/TPS_GAS.uproject" -game -rocket -progress
+[2024.06.09-08.28.38:308][874]Using bundled DotNet SDK version: 6.0.302
+[2024.06.09-08.28.38:308][874]Running UnrealBuildTool: dotnet "..\..\Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildTool.dll" -projectfiles -project="D:/Dev/Unreal Engine Projects/AdvancedUe5Gpp/MultiplayerGppConcepts/TPS_GAS/TPS_GAS.uproject" -game -rocket -progress
+[2024.06.09-08.28.38:610][874]Log file: C:\Users\vinay\AppData\Local\UnrealBuildTool\Log_GPF.txt
+[2024.06.09-08.28.38:811][874]
+[2024.06.09-08.28.38:811][874]Some Platforms were skipped due to invalid SDK setup: IOS, Android, Linux, LinuxArm64.
+[2024.06.09-08.28.38:811][874]See the log file for detailed information
+[2024.06.09-08.28.38:811][874]
+[2024.06.09-08.28.38:811][874]
+[2024.06.09-08.28.38:811][874]Generating VisualStudio project files:
+[2024.06.09-08.28.38:811][874]Discovering modules, targets and source code for project...
+[2024.06.09-08.28.39:719][874]Binding IntelliSense data...
+[2024.06.09-08.28.42:754][874]Binding IntelliSense data... 100%
+[2024.06.09-08.28.42:754][874]Creating common properties file...
+[2024.06.09-08.28.42:754][874]Creating common properties file... 0%
+[2024.06.09-08.28.42:754][874]Writing project files...
+[2024.06.09-08.28.43:774][874]Writing project files... 100%
+[2024.06.09-08.28.43:775][874]
+[2024.06.09-08.28.43:775][874]Generating QueryTargets data for editor...
+[2024.06.09-08.28.44:039][874]Candidate modules for hot reload:
+[2024.06.09-08.28.44:039][874]  TPS_GAS
+[2024.06.09-08.28.44:044][874]Launching UnrealBuildTool... [C:/Program Files/Epic Games/UE_5.3/Engine/Build/BatchFiles/Build.bat  -ModuleWithSuffix=TPS_GAS,9844 TPS_GASEditor Win64 Development -Project="D:/Dev/Unreal Engine Projects/AdvancedUe5Gpp/MultiplayerGppConcepts/TPS_GAS/TPS_GAS.uproject" "D:/Dev/Unreal Engine Projects/AdvancedUe5Gpp/MultiplayerGppConcepts/TPS_GAS/TPS_GAS.uproject"  -IgnoreJunk]
+[2024.06.09-08.28.48:157][874]CompilerResultsLog: New page: Compilation - 09-Jun-2024, 7:28:48 pm
+[2024.06.09-08.28.48:157][874]CompilerResultsLog: Using bundled DotNet SDK version: 6.0.302
+[2024.06.09-08.28.48:157][874]CompilerResultsLog: Running UnrealBuildTool: dotnet "..\..\Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildTool.dll" -ModuleWithSuffix=TPS_GAS,9844 TPS_GASEditor Win64 Development -Project="D:/Dev/Unreal Engine Projects/AdvancedUe5Gpp/MultiplayerGppConcepts/TPS_GAS/TPS_GAS.uproject" "D:/Dev/Unreal Engine Projects/AdvancedUe5Gpp/MultiplayerGppConcepts/TPS_GAS/TPS_GAS.uproject"  -IgnoreJunk
+[2024.06.09-08.28.48:157][874]CompilerResultsLog: Log file: C:\Users\vinay\AppData\Local\UnrealBuildTool\Log.txt
+[2024.06.09-08.28.48:157][874]CompilerResultsLog: Using 'git status' to determine working set for adaptive non-unity build (D:\Dev\Unreal Engine Projects\AdvancedUe5Gpp\MultiplayerGppConcepts).
+[2024.06.09-08.28.48:157][874]CompilerResultsLog: Creating makefile for TPS_GASEditor (no existing makefile)
+[2024.06.09-08.28.48:157][874]CompilerResultsLog: Parsing headers for TPS_GASEditor
+[2024.06.09-08.28.48:157][874]CompilerResultsLog:   Running Internal UnrealHeaderTool "D:\Dev\Unreal Engine Projects\AdvancedUe5Gpp\MultiplayerGppConcepts\TPS_GAS\TPS_GAS.uproject" "D:\Dev\Unreal Engine Projects\AdvancedUe5Gpp\MultiplayerGppConcepts\TPS_GAS\Intermediate\Build\Win64\TPS_GASEditor\Development\TPS_GASEditor.uhtmanifest" -WarningsAsErrors -installed
+[2024.06.09-08.28.48:157][874]CompilerResultsLog: Total of 3 written
+[2024.06.09-08.28.48:157][874]CompilerResultsLog: Reflection code generated for TPS_GASEditor in 0.7628265 seconds
+[2024.06.09-08.28.48:157][874]CompilerResultsLog: Building TPS_GASEditor...
+[2024.06.09-08.28.48:157][874]CompilerResultsLog: Using Visual Studio 2022 14.36.32545 toolchain (C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532) and Windows 10.0.22621.0 SDK (C:\Program Files (x86)\Windows Kits\10).
+[2024.06.09-08.28.48:157][874]CompilerResultsLog: Determining max actions to execute in parallel (8 physical cores, 16 logical cores)
+[2024.06.09-08.28.48:157][874]CompilerResultsLog:   Executing up to 8 processes, one per physical core
+[2024.06.09-08.28.48:157][874]CompilerResultsLog:   Requested 1.5 GB memory per action, 11.23 GB available: limiting max parallel actions to 7
+[2024.06.09-08.28.48:157][874]CompilerResultsLog: ------ Building 6 action(s) started ------
+[2024.06.09-08.28.48:157][874]CompilerResultsLog: [1/6] Compile [x64] TPS_GAS.init.gen.cpp
+[2024.06.09-08.28.48:157][874]CompilerResultsLog: [2/6] Compile [x64] PlayerBaseAttributeSet.gen.cpp
+[2024.06.09-08.28.48:157][874]CompilerResultsLog: [3/6] Compile [x64] PlayerBaseAttributeSet.cpp
+[2024.06.09-08.28.48:157][874]CompilerResultsLog: [4/6] Link [x64] UnrealEditor-TPS_GAS-9844.lib
+[2024.06.09-08.28.48:157][874]CompilerResultsLog:    Creating library D:\Dev\Unreal Engine Projects\AdvancedUe5Gpp\MultiplayerGppConcepts\TPS_GAS\Intermediate\Build\Win64\x64\UnrealEditor\Development\TPS_GAS\UnrealEditor-TPS_GAS-9844.lib and object D:\Dev\Unreal Engine Projects\AdvancedUe5Gpp\MultiplayerGppConcepts\TPS_GAS\Intermediate\Build\Win64\x64\UnrealEditor\Development\TPS_GAS\UnrealEditor-TPS_GAS-9844.exp
+[2024.06.09-08.28.48:157][874]CompilerResultsLog: [5/6] Link [x64] UnrealEditor-TPS_GAS-9844.dll
+[2024.06.09-08.28.48:157][874]CompilerResultsLog:    Creating library D:\Dev\Unreal Engine Projects\AdvancedUe5Gpp\MultiplayerGppConcepts\TPS_GAS\Intermediate\Build\Win64\x64\UnrealEditor\Development\TPS_GAS\UnrealEditor-TPS_GAS-9844.sup.lib and object D:\Dev\Unreal Engine Projects\AdvancedUe5Gpp\MultiplayerGppConcepts\TPS_GAS\Intermediate\Build\Win64\x64\UnrealEditor\Development\TPS_GAS\UnrealEditor-TPS_GAS-9844.sup.exp
+[2024.06.09-08.28.48:157][874]CompilerResultsLog: [6/6] WriteMetadata TPS_GASEditor.target
+[2024.06.09-08.28.48:157][874]CompilerResultsLog: Total time in Parallel executor: 1.50 seconds
+[2024.06.09-08.28.48:157][874]CompilerResultsLog: Total execution time: 3.89 seconds
+[2024.06.09-08.28.48:157][874]LogMainFrame: MainFrame: Module compiling took 4.175 seconds
+[2024.06.09-08.28.48:160][874]LogUObjectHash: Compacting FUObjectHashTables data took   0.19ms
+[2024.06.09-08.28.48:190][874]LogClass: UPackage /Script/TPS_GAS Reload.
+[2024.06.09-08.28.48:190][874]LogClass: Could not find existing class PlayerBaseAttributeSet in package /Script/TPS_GAS for reload, assuming new or modified class
+[2024.06.09-08.28.48:214][874]LogUObjectHash: Compacting FUObjectHashTables data took   0.38ms
+[2024.06.09-08.28.48:238][874]Display: HotReload took  4.3s.
+[2024.06.09-08.28.48:238][874]Display: Reload/Re-instancing Complete: 1 package changed, 1 class new, 3 classes unchanged
+[2024.06.09-08.28.48:238][874]Warning: HotReload operation took  4.3s.
+[2024.06.09-08.28.48:428][874]LogSlate: Window 'Add C++ Class' being destroyed
+[2024.06.09-08.28.48:439][874]LogHotReload: New module detected: UnrealEditor-TPS_GAS-9844.dll
+[2024.06.09-08.28.48:456][875]LogAutomationController: Ignoring very large delta of 11.11 seconds in calls to FAutomationControllerManager::Tick() and not penalizing unresponsive tests
+[2024.06.09-08.28.48:458][875]LogHotReload: Starting Hot-Reload from IDE
