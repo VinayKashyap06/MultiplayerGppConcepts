@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\TPS_GAS.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{F31BBDD1-B3E8-3BCC-9652-680E16935819}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\TPS_GAS.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\TPS_GASEditor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\.vsconfig" />
+    <Filter Include="Config">
+      <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEditorPerProjectUserSettings.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultInput.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Source\TPS_GAS">
+      <UniqueIdentifier>{C82EDF9D-D09A-39F7-844D-8DD3AA740EC8}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\TPS_GAS\TPS_GAS.Build.cs">
+      <Filter>Source\TPS_GAS</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\TPS_GAS\TPS_GAS.cpp">
+      <Filter>Source\TPS_GAS</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\TPS_GAS\TPS_GAS.h">
+      <Filter>Source\TPS_GAS</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\TPS_GAS\TPS_GASCharacter.cpp">
+      <Filter>Source\TPS_GAS</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\TPS_GAS\TPS_GASCharacter.h">
+      <Filter>Source\TPS_GAS</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\TPS_GAS\TPS_GASGameMode.cpp">
+      <Filter>Source\TPS_GAS</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\TPS_GAS\TPS_GASGameMode.h">
+      <Filter>Source\TPS_GAS</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

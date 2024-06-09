@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "TPS_GAS",
+			"Path": "..\\Source\\TPS_GAS.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "TPS_GASEditor",
+			"Path": "..\\Source\\TPS_GASEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}

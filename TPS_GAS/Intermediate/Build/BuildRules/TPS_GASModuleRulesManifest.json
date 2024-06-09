@@ -1,0 +1,8 @@
+{
+	"SourceFiles": [
+		"D:\\Dev\\Unreal Engine Projects\\AdvancedUe5Gpp\\MultiplayerGppConcepts\\TPS_GAS\\Source\\TPS_GAS\\TPS_GAS.Build.cs",
+		"D:\\Dev\\Unreal Engine Projects\\AdvancedUe5Gpp\\MultiplayerGppConcepts\\TPS_GAS\\Source\\TPS_GAS.Target.cs",
+		"D:\\Dev\\Unreal Engine Projects\\AdvancedUe5Gpp\\MultiplayerGppConcepts\\TPS_GAS\\Source\\TPS_GASEditor.Target.cs"
+	],
+	"EngineVersion": "5.3.2"
+}
