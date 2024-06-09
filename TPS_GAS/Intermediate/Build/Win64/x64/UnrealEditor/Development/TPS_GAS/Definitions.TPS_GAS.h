@@ -1,4 +1,4 @@
-#include "D:/Dev/Unreal Engine Projects/AdvancedUe5Gpp/MultiplayerGppConcepts/TPS_GAS/Intermediate/Build/Win64/x64/TPS_GASEditor/Development/Engine/SharedDefinitions.Engine.Cpp20.h"
+#include "D:/Dev/Unreal Engine Projects/AdvancedUe5Gpp/MultiplayerGppConcepts/TPS_GAS/Intermediate/Build/Win64/x64/TPS_GASEditor/Development/UnrealEd/SharedDefinitions.UnrealEd.Cpp20.h"
 #undef UE_IS_ENGINE_MODULE
 #undef DEPRECATED_FORGAME
 #define DEPRECATED_FORGAME DEPRECATED
@@ -30,5 +30,12 @@
 #define DEBUG_LAN_BEACON 0
 #define ONLINESUBSYSTEM_API DLLIMPORT
 #define ONLINEBASE_API DLLIMPORT
+#define ONLINESUBSYSTEMSTEAM_API DLLIMPORT
+#define ONLINESUBSYSTEMUTILS_PACKAGE 1
+#define ONLINESUBSYSTEMUTILS_API DLLIMPORT
+#define WITH_GAMEPLAY_DEBUGGER_CORE 1
+#define WITH_GAMEPLAY_DEBUGGER 1
+#define WITH_GAMEPLAY_DEBUGGER_MENU 1
+#define AIMODULE_API DLLIMPORT
 #define TPS_GAS_API DLLEXPORT
 #define ENHANCEDINPUT_API DLLIMPORT

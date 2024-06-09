@@ -21,7 +21,17 @@ public class TPS_GAS : ModuleRules
         
         //MP
         PrivateDependencyModuleNames.AddRange(new string[] {
-            "OnlineSubsystem"
+            "OnlineSubsystem",
+			"OnlineSubsystemSteam"
         });
+		
+		//additional
+		PrivateDependencyModuleNames.AddRange(new string[] {
+            "AIModule",
+			"UMG",
+			"MovieScene"
+        });
+		
+		
     }
 }

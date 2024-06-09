@@ -1,8 +1,8 @@
-Log started at 06/09/2024 13:03:54 (2024-06-09T07:33:54Z)
+Log started at 06/09/2024 13:53:45 (2024-06-09T08:23:45Z)
 No config file at C:\Users\vinay\Documents\Unreal Engine\UnrealBuildTool\BuildConfiguration.xml
 Configuration will be read from:
   C:\Users\vinay\AppData\Roaming\Unreal Engine\UnrealBuildTool\BuildConfiguration.xml
-Log file: D:\Dev\Unreal Engine Projects\AdvancedUe5Gpp\MultiplayerGppConcepts\TPS_GAS\Saved\Logs\UnrealVersionSelector-2024.06.09-13.03.54.log
+Log file: D:\Dev\Unreal Engine Projects\AdvancedUe5Gpp\MultiplayerGppConcepts\TPS_GAS\Saved\Logs\UnrealVersionSelector-2024.06.09-13.53.45.log
 
 Setting temp directory to 'C:\Users\vinay\AppData\Local\Temp\UnrealBuildTool\319625c3'
     Registering build platform: UnrealBuildTool.AndroidPlatformFactory
@@ -1762,8 +1762,8 @@ AddProjectsForAllModules C:\Program Files\Epic Games\UE_5.3\Engine\Plugins\XGECo
 AddProjectsForAllModules D:\Dev\Unreal Engine Projects\AdvancedUe5Gpp\MultiplayerGppConcepts\TPS_GAS\Source\TPS_GAS\TPS_GAS.Build.cs
 Binding IntelliSense data...
 @progress 'Binding IntelliSense data...' 0%
-Found target: UnrealEditor
 Found target: TPS_GASEditor
+Found target: UnrealEditor
 Building UnrealEditor - UnrealEditor - Win64 - Development
 Building UnrealEditor - TPS_GASEditor - Win64 - Development
 Excluding module AndroidLocalNotification: Excluded folder name
@@ -8296,13 +8296,13 @@ Creating common properties file...
 @progress 'Creating common properties file...' 0%
 Writing project files...
 @progress 'Writing project files...' 0%
-Saved TPS_GAS.vcxproj
-Saved TPS_GAS.vcxproj.filters
-Saved TPS_GAS.vcxproj.user
-@progress 'Writing project files...' 33%
 Saved UE5.vcxproj
 Saved UE5.vcxproj.filters
 Saved UE5.vcxproj.user
+@progress 'Writing project files...' 33%
+Saved TPS_GAS.vcxproj
+Saved TPS_GAS.vcxproj.filters
+Saved TPS_GAS.vcxproj.user
 @progress 'Writing project files...' 67%
 Skipped saving TPS_GAS.sln because contents haven't changed.
 Skipped saving .vsconfig because contents haven't changed.
@@ -8314,5 +8314,5 @@ WriteFileIfChanged() wrote 5 changed files of 1509 requested writes.
 Timeline:
 
 [ 0.000]
-[ 0.000](+4.429) <unknown>
-[ 4.429]
+[ 0.000](+15.265) <unknown>
+[15.265]

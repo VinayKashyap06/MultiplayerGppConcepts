@@ -5,11 +5,7 @@
 			"guid": "00000000000000000000000000000000",
 			"description": "Default Uncontrolled Changelist",
 			"files": [
-				"D:/Dev/Unreal Engine Projects/AdvancedUe5Gpp/MultiplayerGppConcepts/TPS_GAS/Content/StarterContent/Particles/P_Ambient_Dust.uasset",
-				"D:/Dev/Unreal Engine Projects/AdvancedUe5Gpp/MultiplayerGppConcepts/TPS_GAS/Content/Game/Maps/Lobby.umap",
-				"D:/Dev/Unreal Engine Projects/AdvancedUe5Gpp/MultiplayerGppConcepts/TPS_GAS/Content/Game/Maps/MainMenu.umap",
-				"D:/Dev/Unreal Engine Projects/AdvancedUe5Gpp/MultiplayerGppConcepts/TPS_GAS/Content/ThirdPerson/Blueprints/BP_PlayerCharacter.uasset",
-				"D:/Dev/Unreal Engine Projects/AdvancedUe5Gpp/MultiplayerGppConcepts/TPS_GAS/Content/Game/Blueprints/BP_PlayerCharacter.uasset"
+				"D:/Dev/Unreal Engine Projects/AdvancedUe5Gpp/MultiplayerGppConcepts/TPS_GAS/Content/StarterContent/HDRI/HDRI_Epic_Courtyard_Daylight.uasset"
 			]
 		}
 	]
