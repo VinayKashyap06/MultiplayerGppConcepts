@@ -11,12 +11,24 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 
+#include "AbilitySystemComponent.h"
+#include "AbilitySystemBlueprintLibrary.h"
+#include "GAS/PlayerAbilitySystemComponent.h"
+#include "GAS/PlayerBaseAttributeSet.h"
+
+#include "DataAssets/CharacterDataAsset.h"
+#include "Player/PlayerMovementComponent.h"
+#include "Player/PlayerAudioComponent.h"
+#include "Player/PlayerMotionWarpingComponent.h"
+
+#include "Net/UnrealNetwork.h"
+
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
 //////////////////////////////////////////////////////////////////////////
 // ATPS_GASCharacter
 
-ATPS_GASCharacter::ATPS_GASCharacter()
+ATPS_GASCharacter::ATPS_GASCharacter(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer.SetDefaultSubobjectClass<UPlayerMovementComponent>(ACharacter::CharacterMovementComponentName))
 {
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
@@ -52,6 +64,22 @@ ATPS_GASCharacter::ATPS_GASCharacter()
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
+
+
+
+	//GAS
+	PlayerAbilitySystemComp = CreateDefaultSubobject<UPlayerAbilitySystemComponent>(TEXT("PlayerAbilityComp"));
+	PlayerAbilitySystemComp->SetIsReplicated(true);
+	PlayerAbilitySystemComp->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);
+
+	//Binding change in attribute to our custom code
+	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(PlayerBaseAttributes->GetMaxMovementSpeedAttribute()).AddUObject(this, &ThisClass::OnMaxMovementSpeedChanged);
+
+	PlayerBaseAttributes = CreateDefaultSubobject<UPlayerBaseAttributeSet>(TEXT("PlayerBaseAttributes"));
+	
+	PlayerAudioComponent = CreateDefaultSubobject<UPlayerAudioComponent>(TEXT("PlayerAudioComp"));
+	PlayerMovementComponent = Cast<UPlayerMovementComponent>(GetMovementComponent());
+	PlayerMotionWarpingComponent = CreateDefaultSubobject<UPlayerMotionWarpingComponent>(TEXT("PlayerMotionWarpingComp"));
 }
 
 void ATPS_GASCharacter::BeginPlay()
@@ -69,6 +97,47 @@ void ATPS_GASCharacter::BeginPlay()
 	}
 }
 
+void ATPS_GASCharacter::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+
+	if (IsValid(CharacterDataAsset))
+	{
+		SetCharacterData(CharacterDataAsset->CharacterData);
+	}
+}
+
+void ATPS_GASCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(ATPS_GASCharacter, CharacterData);
+}
+
+bool ATPS_GASCharacter::ApplyGameplayEffectToSelf(TSubclassOf<UGameplayEffect> Effect, FGameplayEffectContextHandle InEffectContext)
+{
+	if (!Effect.Get())
+	{
+		return false;
+	}
+
+	FGameplayEffectSpecHandle SpecHandle = PlayerAbilitySystemComp->MakeOutgoingSpec(Effect, 1, InEffectContext);
+	if (SpecHandle.IsValid())
+	{
+		FActiveGameplayEffectHandle ActiveGEHandle = PlayerAbilitySystemComp->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
+		return ActiveGEHandle.WasSuccessfullyApplied();
+	}
+
+	return false;
+}
+
+
+UAbilitySystemComponent* ATPS_GASCharacter::GetAbilitySystemComponent() const
+{
+	return PlayerAbilitySystemComp;
+}
+
+
 //////////////////////////////////////////////////////////////////////////
 // Input
 
@@ -78,8 +147,16 @@ void ATPS_GASCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent)) {
 		
 		// Jumping
-		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &ACharacter::Jump);
-		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
+		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &ATPS_GASCharacter::OnJump);
+		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ATPS_GASCharacter::OnStopJumping);
+
+		//Crouching
+		EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Started, this, &ATPS_GASCharacter::ToggleCrouch);
+		
+		//Sprinting
+		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Started, this, &ATPS_GASCharacter::OnSprintStarted);
+		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Completed, this, &ATPS_GASCharacter::OnSprintStopped);
+
 
 		// Moving
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ATPS_GASCharacter::Move);
@@ -127,4 +204,143 @@ void ATPS_GASCharacter::Look(const FInputActionValue& Value)
 		AddControllerYawInput(LookAxisVector.X);
 		AddControllerPitchInput(LookAxisVector.Y);
 	}
+}
+
+//GAS + input
+void ATPS_GASCharacter::OnJump(const FInputActionValue& Value)
+{
+	//SEND EVENT, observe this event in ability
+	FGameplayEventData NewPayload;
+	NewPayload.EventTag = JumpEventTag;
+	NewPayload.Instigator = this;
+	UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(this, JumpEventTag, NewPayload);
+
+
+	//Calling movement component's traversal to allow motion warping
+	if(PlayerAbilitySystemComp)
+		PlayerMovementComponent->TryTraversal(PlayerAbilitySystemComp);
+}
+
+void ATPS_GASCharacter::OnStopJumping(const FInputActionValue& Value)
+{
+	StopJumping();
+}
+
+void ATPS_GASCharacter::Landed(const FHitResult& Hit) //overriden
+{
+	Super::Landed(Hit);
+
+	if (PlayerAbilitySystemComp)
+	{
+		PlayerAbilitySystemComp->RemoveActiveEffectsWithTags(InAirTags);
+	}
+}
+
+void ATPS_GASCharacter::OnStartCrouch(float HalfHeightAdjust, float ScaledHalfHeightAdjust)
+{
+	Super::OnStartCrouch(HalfHeightAdjust, ScaledHalfHeightAdjust);
+}
+
+void ATPS_GASCharacter::OnEndCrouch(float HalfHeightAdjust, float ScaledHalfHeightAdjust)
+{
+	Super::OnEndCrouch(HalfHeightAdjust, ScaledHalfHeightAdjust);
+}
+
+void ATPS_GASCharacter::ToggleCrouch(const FInputActionValue& Value)
+{
+	//apply crouch ability if uncrouched
+	if (bIsCrouched)
+	{
+		//uncrouch
+		PlayerAbilitySystemComp->CancelAbilities(&CrouchTags);
+		return;
+	}
+
+	//Send Direct call
+	PlayerAbilitySystemComp->TryActivateAbilitiesByTag(CrouchTags, true);
+}
+
+void ATPS_GASCharacter::OnSprintStarted(const FInputActionValue& Value)
+{
+	if (PlayerAbilitySystemComp)
+	{
+		PlayerAbilitySystemComp->TryActivateAbilitiesByTag(SprintTags, true);
+	}
+}
+
+void ATPS_GASCharacter::OnSprintStopped(const FInputActionValue& Value)
+{
+	if (PlayerAbilitySystemComp)
+	{
+		PlayerAbilitySystemComp->CancelAbilities(&SprintTags);
+	}
+}
+
+
+////Gameplay Abilities
+
+void ATPS_GASCharacter::GiveAbilities()
+{
+	if (HasAuthority() && PlayerAbilitySystemComp)
+	{
+		for (auto& DefaultAbility : CharacterData.Abilities)
+		{
+			PlayerAbilitySystemComp->GiveAbility(FGameplayAbilitySpec(DefaultAbility));
+		}
+		UE_LOG(LogTemp, Warning, TEXT("abilities given"));
+	}
+}
+
+void ATPS_GASCharacter::ApplyStartupEffects()
+{
+	if (HasAuthority() && PlayerAbilitySystemComp)
+	{
+		//create context handle
+		FGameplayEffectContextHandle EffectContext = PlayerAbilitySystemComp->MakeEffectContext();
+		EffectContext.AddSourceObject(this);
+		for (auto& StartupEffect : CharacterData.Effects)
+		{
+			ApplyGameplayEffectToSelf(StartupEffect, EffectContext); //our helper function
+		}
+		UE_LOG(LogTemp, Warning, TEXT("startupeffects attributes"));
+	}
+}
+
+//Player Replication
+//runs on server
+void ATPS_GASCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+
+	PlayerAbilitySystemComp->InitAbilityActorInfo(this, this);
+	GiveAbilities();
+	ApplyStartupEffects();
+
+}
+
+//replicated to client so client can init ability
+void ATPS_GASCharacter::OnRep_PlayerState()
+{
+	Super::OnRep_PlayerState();
+	PlayerAbilitySystemComp->InitAbilityActorInfo(this, this);
+}
+
+void ATPS_GASCharacter::SetCrouchedCamera(bool set)
+{
+	CameraBoom->SocketOffset.Y = set? -20.0f : 0.0f;
+}
+
+void ATPS_GASCharacter::OnMaxMovementSpeedChanged(const FOnAttributeChangeData& Data)
+{
+	GetCharacterMovement()->MaxWalkSpeed = Data.NewValue;
+}
+
+void ATPS_GASCharacter::OnRep_CharacterData()
+{
+	InitFromCharacterData(CharacterData, true);
+}
+
+void ATPS_GASCharacter::InitFromCharacterData(const FCharacterData& InCharacterData, bool bFromReplication)
+{
+
 }
