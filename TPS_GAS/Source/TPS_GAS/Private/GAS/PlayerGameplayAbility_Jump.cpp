@@ -10,7 +10,7 @@ UPlayerGameplayAbility_Jump::UPlayerGameplayAbility_Jump()
 {
 	//Reference : https://docs.unrealengine.com/4.27/en-US/InteractiveExperiences/GameplayAbilitySystem/GameplayAbility/
 	NetExecutionPolicy = EGameplayAbilityNetExecutionPolicy::LocalPredicted;
-	InstancingPolicy = EGameplayAbilityInstancingPolicy::NonInstanced;
+	InstancingPolicy = EGameplayAbilityInstancingPolicy::InstancedPerActor;
 }
 
 bool UPlayerGameplayAbility_Jump::CanActivateAbility(
