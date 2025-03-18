@@ -6,17 +6,18 @@
 #include "TPS_GAS/TPS_GASCharacter.h"
 #include "Player/PlayerAudioComponent.h"
 
-void UAnimNotify_Footstep::Notify(USkeletalMeshComponent* Mesh, UAnimSequenceBase* Animation)
+//Playing audio via notify
+void UAnimNotify_Footstep::Notify(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation, const FAnimNotifyEventReference& EventReference)
 {
-	Super::Notify(Mesh, Animation);
-	
-	check(Mesh);
+	Super::Notify(MeshComp, Animation, EventReference);
 
-	ATPS_GASCharacter* Character = Mesh ? Cast<ATPS_GASCharacter>(Mesh->GetOwner()) : nullptr;
+	check(MeshComp);
+
+	ATPS_GASCharacter* Character = MeshComp ? Cast<ATPS_GASCharacter>(MeshComp->GetOwner()) : nullptr;
 
 	if (Character)
 	{
-		if (Character->GetPlayerAudioComp()) 
+		if (Character->GetPlayerAudioComp())
 		{
 			Character->GetPlayerAudioComp()->HandleFootStepSound(Foot);
 		}

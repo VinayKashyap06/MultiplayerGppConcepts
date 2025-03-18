@@ -55,15 +55,19 @@ protected:
 	float VerticalTraceStep = 30.0f;
 
 	UPROPERTY(EditDefaultsOnly, Category = "TraceSettings")
-	TArray<TEnumAsByte<EObjectTypeQuery>> TraceObjectTypes;
+	TArray<TEnumAsByte<EObjectTypeQuery>> TraceObjectTypes; //collisions to trace
 
 	UPROPERTY(EditDefaultsOnly, Category = "TraceSettings")
-	TArray<TEnumAsByte<ECollisionChannel>> CollisionChannelsToIgnore;
+	TArray<TEnumAsByte<ECollisionChannel>> CollisionChannelsToIgnore; //collisions to ignore
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Animation")
-	class UAnimMontage* VaultMontage = nullptr;
+	class UAnimMontage* VaultMontage = nullptr; //jumpover montage
 
-	FVector JumpOverLocation;
-	FVector JumpToLocation;
+	UPROPERTY()
+	class UAbilityTask_PlayMontageAndWait* MontagePlayAwaitTask = nullptr;
+
+	//cached target points during commit check
+	FVector JumpOverLocation= FVector::Zero();
+	FVector JumpToLocation = FVector::Zero();
 
 };

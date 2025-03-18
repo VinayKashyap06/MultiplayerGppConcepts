@@ -18,8 +18,6 @@ public:
 	bool TryTraversal(UPlayerAbilitySystemComponent* AbilitySystemComp);
 
 protected:
-	UPROPERTY()
+	UPROPERTY(EditDefaultsOnly)
 	TArray<TSubclassOf<UGameplayAbility>> TraversalAbilitiesOrdered;
-
-
 };
