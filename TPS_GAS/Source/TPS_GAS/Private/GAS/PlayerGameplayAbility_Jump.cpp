@@ -1,6 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "GAS/PlayerGameplayAbility_Jump.h"
 #include "GameFramework/Character.h"
 #include "AbilitySystemComponent.h"

@@ -1,6 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "GAS/PlayerGameplayAbility_Crouch.h"
 #include "TPS_GAS/TPS_GASCharacter.h"
 

@@ -62,6 +62,10 @@ class ATPS_GASCharacter : public ACharacter, public IAbilitySystemInterface
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* LookAction;
 
+	/** Force Attack Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* ForceAttackAction;
+
 public:
 	
 	ATPS_GASCharacter(const FObjectInitializer& ObjectInitializer);
@@ -82,6 +86,8 @@ protected:
 
 	void OnSprintStarted(const FInputActionValue& Value);
 	void OnSprintStopped(const FInputActionValue& Value);
+
+	void OnForceAttack(const FInputActionValue& Value);
 
 
 	void GiveAbilities();
@@ -173,6 +179,9 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly)
 	FGameplayTagContainer SprintTags; //to remove/activate all sprint tags
+
+	UPROPERTY(EditDefaultsOnly)
+	FGameplayTagContainer ForceAttackTag;
 
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UGameplayEffect> CrouchStateEffect;

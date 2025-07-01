@@ -1,6 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "GAS/PlayerGameplayAbility_Vault.h"
 #include "TPS_GAS/TPS_GASCharacter.h"
 #include "Kismet/KismetSystemLibrary.h"
@@ -176,6 +173,7 @@ void UPlayerGameplayAbility_Vault::ActivateAbility(const FGameplayAbilitySpecHan
 		}
 	}
 
+	//https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Plugins/GameplayAbilities/Abilities/Tasks/UAbilityTask_PlayMontageAndWait
 	MontagePlayAwaitTask = UAbilityTask_PlayMontageAndWait::CreatePlayMontageAndWaitProxy(this, NAME_None, VaultMontage);
 
 	//we end ability if our anim task cannot be played for some reason

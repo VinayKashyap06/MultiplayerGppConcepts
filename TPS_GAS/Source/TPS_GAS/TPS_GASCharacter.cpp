@@ -152,12 +152,14 @@ void ATPS_GASCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Started, this, &ATPS_GASCharacter::OnSprintStarted);
 		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Completed, this, &ATPS_GASCharacter::OnSprintStopped);
 
-
 		// Moving
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ATPS_GASCharacter::Move);
 
 		// Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ATPS_GASCharacter::Look);
+
+		//Force Attack
+		EnhancedInputComponent->BindAction(ForceAttackAction, ETriggerEvent::Started, this, &ATPS_GASCharacter::OnForceAttack);
 	}
 	else
 	{
@@ -271,6 +273,19 @@ void ATPS_GASCharacter::OnSprintStopped(const FInputActionValue& Value)
 	}
 }
 
+void ATPS_GASCharacter::OnForceAttack(const FInputActionValue& Value)
+{
+	if (PlayerAbilitySystemComp)
+	{
+	    //GameplayEventData NewPayload;
+		//NewPayload.EventTag = ForceAttackTag.First();
+		//NewPayload.Instigator = this;
+		//UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(this, ForceAttackTag.First(), NewPayload);
+
+		PlayerAbilitySystemComp->TryActivateAbilitiesByTag(ForceAttackTag, true);
+	}
+}
+
 
 ////Gameplay Abilities
 
@@ -317,7 +332,8 @@ void ATPS_GASCharacter::PossessedBy(AController* NewController)
 void ATPS_GASCharacter::OnRep_PlayerState()
 {
 	Super::OnRep_PlayerState();
-	PlayerAbilitySystemComp->InitAbilityActorInfo(this, this);
+
+	//PlayerAbilitySystemComp->InitAbilityActorInfo(this, this);
 }
 
 void ATPS_GASCharacter::SetCrouchedCamera(bool set)
