@@ -2,11 +2,11 @@
 
 // Add default functionality here for any IInteractableInterface functions that are not pure virtual.
 
-void IInteractableInterface::OnForceApplied(const AActor* Instigator)
+void IInteractableInterface::OnForceApplied(const AActor* PlayerInstigator, const float& ForceApplied)
 {
-	if (Instigator)
+	if (PlayerInstigator)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Force Applied by instigator %s"), *Instigator->GetName());
+		UE_LOG(LogTemp, Warning, TEXT("Force Applied by instigator %s"), *PlayerInstigator->GetName());
 	}
 	else
 	{

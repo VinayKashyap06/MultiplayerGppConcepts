@@ -32,7 +32,6 @@ void UPlayerAbility_ForceAttack::ActivateAbility(const FGameplayAbilitySpecHandl
 	TArray<TEnumAsByte<EObjectTypeQuery>> ObjectTypes;
 
 	ObjectTypes.Add(UEngineTypes::ConvertToObjectType(ECC_WorldDynamic)); //world dynamic for now
-	ObjectTypes.Add(UEngineTypes::ConvertToObjectType(ECC_PhysicsBody));
 
 	OutActorsInCone = GetActorsInCone(GetWorld(), Location, Forward, 1000.0f, 45.0f, ObjectTypes, OutActorsInCone, true); //todo shift the constants to uproperties
 
@@ -45,7 +44,7 @@ void UPlayerAbility_ForceAttack::ActivateAbility(const FGameplayAbilitySpecHandl
 			IInteractableInterface* interactable = Cast<IInteractableInterface>(Target);
 			if (interactable)
 			{
-				interactable->OnForceApplied(GetPlayerCharacterFromActorInfo(), 5000.0f);
+				interactable->OnForceApplied(GetPlayerCharacterFromActorInfo(), 100.0f);
 			}
 		}
 		else

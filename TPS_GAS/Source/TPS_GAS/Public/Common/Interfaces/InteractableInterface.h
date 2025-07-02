@@ -22,5 +22,5 @@ class TPS_GAS_API IInteractableInterface
 public:
 
 	UFUNCTION()
-	virtual void OnForceApplied(const AActor* Instigator);
+	virtual void OnForceApplied(const AActor* PlayerInstigator, const float& ForceApplied);
 };
