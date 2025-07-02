@@ -181,7 +181,7 @@ protected:
 	FGameplayTagContainer SprintTags; //to remove/activate all sprint tags
 
 	UPROPERTY(EditDefaultsOnly)
-	FGameplayTagContainer ForceAttackTag;
+	FGameplayTagContainer ForceAttackTag; //to remove/activate all force attack tags, todo add a combat actor component to use these
 
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UGameplayEffect> CrouchStateEffect;
@@ -190,5 +190,7 @@ protected:
 	//Delegates
 	FDelegateHandle MaxMovementSpeedChangedDelegateHandle;
 
+private:
+	bool bAbilitiesGiven;
 };
 

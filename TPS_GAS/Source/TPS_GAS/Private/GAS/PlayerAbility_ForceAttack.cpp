@@ -18,12 +18,9 @@ bool UPlayerAbility_ForceAttack::CanActivateAbility(const FGameplayAbilitySpecHa
 
 void UPlayerAbility_ForceAttack::ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData)
 {
-	if (HasAuthorityOrPredictionKey(ActorInfo, &ActivationInfo))
+	if (!HasAuthorityOrPredictionKey(ActorInfo, &ActivationInfo))
 	{
-		if (!CommitAbility(Handle, ActorInfo, ActivationInfo))
-		{
-			return;
-		}
+		return;
 	}
 
 	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
@@ -36,7 +33,8 @@ void UPlayerAbility_ForceAttack::ActivateAbility(const FGameplayAbilitySpecHandl
 
 	ObjectTypes.Add(UEngineTypes::ConvertToObjectType(ECC_WorldDynamic)); //world dynamic for now
 
-	GetActorsInCone(GetWorld(), Location, Forward, 1000.0f, 45.0f, ObjectTypes, OutActorsInCone, true);
+	OutActorsInCone = GetActorsInCone(GetWorld(), Location, Forward, 1000.0f, 45.0f, ObjectTypes, OutActorsInCone, true); //todo shift the constants to uproperties
+
 
 	for (AActor* Target : OutActorsInCone)
 	{
@@ -55,6 +53,7 @@ void UPlayerAbility_ForceAttack::ActivateAbility(const FGameplayAbilitySpecHandl
 		}
 	}
 	//apply animation
+	
 	//apply physics
 	ApplyCooldown(Handle, ActorInfo, ActivationInfo);
 	//Attack done

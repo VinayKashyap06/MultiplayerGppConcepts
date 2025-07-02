@@ -159,7 +159,7 @@ void ATPS_GASCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ATPS_GASCharacter::Look);
 
 		//Force Attack
-		EnhancedInputComponent->BindAction(ForceAttackAction, ETriggerEvent::Started, this, &ATPS_GASCharacter::OnForceAttack);
+		EnhancedInputComponent->BindAction(ForceAttackAction, ETriggerEvent::Triggered, this, &ATPS_GASCharacter::OnForceAttack);
 	}
 	else
 	{
@@ -206,13 +206,6 @@ void ATPS_GASCharacter::Look(const FInputActionValue& Value)
 //GAS + input
 void ATPS_GASCharacter::OnJump(const FInputActionValue& Value)
 {
-	//SEND EVENT, observe this event in ability
-	FGameplayEventData NewPayload;
-	NewPayload.EventTag = JumpEventTag;
-	NewPayload.Instigator = this;
-	UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(this, JumpEventTag, NewPayload);
-
-
 	//Calling movement component's traversal to allow motion warping
 	if(PlayerAbilitySystemComp)
 		PlayerMovementComponent->TryTraversal(PlayerAbilitySystemComp);
@@ -277,15 +270,14 @@ void ATPS_GASCharacter::OnForceAttack(const FInputActionValue& Value)
 {
 	if (PlayerAbilitySystemComp)
 	{
-	    //GameplayEventData NewPayload;
-		//NewPayload.EventTag = ForceAttackTag.First();
-		//NewPayload.Instigator = this;
-		//UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(this, ForceAttackTag.First(), NewPayload);
+		if (!PlayerAbilitySystemComp->HasMatchingGameplayTag(ForceAttackTag.First()))
+		{
+			PlayerAbilitySystemComp->TryActivateAbilitiesByTag(ForceAttackTag, true);
+			UE_LOG(LogTemp, Warning, TEXT("force attack given"));
 
-		PlayerAbilitySystemComp->TryActivateAbilitiesByTag(ForceAttackTag, true);
+		}
 	}
 }
-
 
 ////Gameplay Abilities
 
@@ -298,6 +290,7 @@ void ATPS_GASCharacter::GiveAbilities()
 			PlayerAbilitySystemComp->GiveAbility(FGameplayAbilitySpec(DefaultAbility));
 		}
 		UE_LOG(LogTemp, Warning, TEXT("abilities given"));
+		bAbilitiesGiven = true;
 	}
 }
 
@@ -322,9 +315,12 @@ void ATPS_GASCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
 
-	PlayerAbilitySystemComp->InitAbilityActorInfo(this, this);
-	GiveAbilities();
-	ApplyStartupEffects();
+	if (!bAbilitiesGiven)
+	{
+		PlayerAbilitySystemComp->InitAbilityActorInfo(this, this);
+		GiveAbilities();
+		ApplyStartupEffects();
+	}
 
 }
 
@@ -333,7 +329,7 @@ void ATPS_GASCharacter::OnRep_PlayerState()
 {
 	Super::OnRep_PlayerState();
 
-	//PlayerAbilitySystemComp->InitAbilityActorInfo(this, this);
+	PlayerAbilitySystemComp->InitAbilityActorInfo(this, this);
 }
 
 void ATPS_GASCharacter::SetCrouchedCamera(bool set)
