@@ -33,6 +33,7 @@ void UPlayerAbility_ForceAttack::ActivateAbility(const FGameplayAbilitySpecHandl
 
 	ObjectTypes.Add(UEngineTypes::ConvertToObjectType(ECC_WorldDynamic)); //world dynamic for now
 	ObjectTypes.Add(UEngineTypes::ConvertToObjectType(ECC_PhysicsBody));
+	ObjectTypes.Add(UEngineTypes::ConvertToObjectType(ECC_Destructible));
 
 	OutActorsInCone = GetActorsInCone(GetWorld(), Location, Forward, 1000.0f, 45.0f, ObjectTypes, OutActorsInCone, true); //todo shift the constants to uproperties
 
