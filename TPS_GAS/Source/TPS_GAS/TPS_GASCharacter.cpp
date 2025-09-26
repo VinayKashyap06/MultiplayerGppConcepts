@@ -20,7 +20,7 @@
 #include "Player/PlayerMovementComponent.h"
 #include "Player/PlayerAudioComponent.h"
 #include "Player/PlayerMotionWarpingComponent.h"
-
+#include "UI/CrosshairUserWidget.h"
 #include "Net/UnrealNetwork.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
@@ -90,6 +90,15 @@ void ATPS_GASCharacter::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
+
+	if (CrosshairWidgetClass)
+	{
+		CrosshairCreatedWidget = CreateWidget<UCrosshairUserWidget>(GetWorld(), CrosshairWidgetClass);
+		if (CrosshairCreatedWidget)
+		{
+			CrosshairCreatedWidget->AddToViewport();
+		}
+	}
 }
 
 void ATPS_GASCharacter::PostInitializeComponents()
@@ -100,6 +109,12 @@ void ATPS_GASCharacter::PostInitializeComponents()
 	{
 		SetCharacterData(CharacterDataAsset->CharacterData);
 	}
+}
+
+void ATPS_GASCharacter::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	//PerformLineTrace();
 }
 
 void ATPS_GASCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -342,6 +357,11 @@ void ATPS_GASCharacter::OnMaxMovementSpeedChanged(const FOnAttributeChangeData& 
 	GetCharacterMovement()->MaxWalkSpeed = Data.NewValue;
 }
 
+FVector ATPS_GASCharacter::GetPlayerCrosshairAttackLocation_Implementation()
+{
+	 return CameraLocation + FVector(0.0f, 50.0f, 0.0f); 
+}
+
 void ATPS_GASCharacter::OnRep_CharacterData()
 {
 	InitFromCharacterData(CharacterData, true);
@@ -350,4 +370,30 @@ void ATPS_GASCharacter::OnRep_CharacterData()
 void ATPS_GASCharacter::InitFromCharacterData(const FCharacterData& InCharacterData, bool bFromReplication)
 {
 
+}
+
+void ATPS_GASCharacter::PerformLineTrace()
+{
+	APlayerController* PC = Cast<APlayerController>(GetController());
+	if (!PC)
+		return;
+	PC->GetPlayerViewPoint(CameraLocation, CameraRotation);
+
+	FVector TraceStart = CameraLocation;
+	FVector TraceEnd = TraceStart + (CameraRotation.Vector() * 10000.f);
+
+	FHitResult HitResult;
+	FCollisionQueryParams Params;
+	Params.AddIgnoredActor(this);
+
+	GetWorld()->LineTraceSingleByChannel(
+		HitResult,
+		TraceStart,
+		TraceEnd,
+		ECC_Visibility,
+		Params
+	);
+	
+	DrawDebugLine(GetWorld(), TraceStart + GetActorForwardVector(), TraceEnd, FColor::Green, false, 1.f, 0, 1.f);
+	DrawDebugSphere(GetWorld(), HitResult.ImpactPoint, 5.f, 12, FColor::Red, false, 1.f);
 }

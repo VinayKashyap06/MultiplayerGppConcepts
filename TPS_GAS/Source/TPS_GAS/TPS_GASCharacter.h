@@ -131,6 +131,7 @@ protected:
 	virtual void BeginPlay();
 
 	virtual void PostInitializeComponents() override;
+	virtual void Tick(float DeltaTime) override;
 
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
@@ -154,9 +155,12 @@ public:
 	FORCEINLINE class UPlayerAudioComponent* GetPlayerAudioComp() const { return PlayerAudioComponent; }
 
 	void SetCrouchedCamera(bool set);
-
-
 	void OnMaxMovementSpeedChanged(const FOnAttributeChangeData& Data);
+
+	UFUNCTION(BlueprintNativeEvent, Category = "Abilities")
+	FVector GetPlayerCrosshairAttackLocation();
+
+	virtual FVector GetPlayerCrosshairAttackLocation_Implementation();
 
 protected:
 	UFUNCTION()
@@ -186,11 +190,21 @@ protected:
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UGameplayEffect> CrouchStateEffect;
 
-
 	//Delegates
 	FDelegateHandle MaxMovementSpeedChangedDelegateHandle;
 
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "UI")
+	TSubclassOf<class UCrosshairUserWidget> CrosshairWidgetClass;
+
 private:
 	bool bAbilitiesGiven;
+	//Simple crosshair
+	class UCrosshairUserWidget* CrosshairCreatedWidget;
+
+	FVector CameraLocation;
+	FRotator CameraRotation;
+
+	void PerformLineTrace();
+
 };
 

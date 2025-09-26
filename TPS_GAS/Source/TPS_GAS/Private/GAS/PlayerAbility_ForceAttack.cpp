@@ -26,19 +26,35 @@ void UPlayerAbility_ForceAttack::ActivateAbility(const FGameplayAbilitySpecHandl
 	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
 	//activate force
 	//Do a cone trace
-	const FVector& Location = GetPlayerCharacterFromActorInfo()->GetActorLocation();
+	const FVector& Location = GetPlayerCharacterFromActorInfo()->GetPlayerCrosshairAttackLocation();
 	const FVector& Forward = GetPlayerCharacterFromActorInfo()->GetActorForwardVector();
-	TArray<AActor*> OutActorsInCone;
+	TArray<AActor*> OutActorsInRange;
 	TArray<TEnumAsByte<EObjectTypeQuery>> ObjectTypes;
 
 	ObjectTypes.Add(UEngineTypes::ConvertToObjectType(ECC_WorldDynamic)); //world dynamic for now
 	ObjectTypes.Add(UEngineTypes::ConvertToObjectType(ECC_PhysicsBody));
 	ObjectTypes.Add(UEngineTypes::ConvertToObjectType(ECC_Destructible));
 
-	OutActorsInCone = GetActorsInCone(GetWorld(), Location, Forward, 1000.0f, 45.0f, ObjectTypes, OutActorsInCone, true); //todo shift the constants to uproperties
+	bool bUseConeTrace = false;
+	if (bUseConeTrace)
+	{
+		OutActorsInRange = GetActorsInCone(GetWorld(), Location, Forward, 1000.0f, 45.0f, ObjectTypes, OutActorsInRange, true); //todo shift the constants to uproperties
+
+	}
+	else
+	{
+
+		FHitResult Result = PerformLineTrace(GetPlayerCharacterFromActorInfo(), GetWorld());
+		OutActorsInRange.Empty();
+		if (Result.GetActor())
+		{
+			OutActorsInRange.Add(Result.GetActor());
+		}
+
+	}
 
 
-	for (AActor* Target : OutActorsInCone)
+	for (AActor* Target : OutActorsInRange)
 	{
 		if (Target->GetClass()->ImplementsInterface(IInteractableInterface::UClassType::StaticClass()))
 		{
@@ -55,7 +71,7 @@ void UPlayerAbility_ForceAttack::ActivateAbility(const FGameplayAbilitySpecHandl
 		}
 	}
 	//apply animation
-	
+
 	//apply physics
 	ApplyCooldown(Handle, ActorInfo, ActivationInfo);
 	//Attack done

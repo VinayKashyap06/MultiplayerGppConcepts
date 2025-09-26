@@ -2,6 +2,8 @@
 
 #include <Kismet/GameplayStatics.h>
 #include <DrawDebugHelpers.h>
+#include "GameFramework/Character.h"
+#include "GameFramework/PlayerController.h"
 
 // <summary>
 ///Get all actors in a radius, then check if they fall within a cone angle from the forward direction.
@@ -68,4 +70,38 @@ TArray<AActor*> GetActorsInCone(
 	}
 
 	return OutActors;
+}
+
+
+FHitResult PerformLineTrace(const ACharacter* Character, const UWorld* World)
+{
+	FVector CameraLocation;
+	FRotator CameraRotation;
+
+	APlayerController* PC = Cast<APlayerController>(Character->GetController());
+	if (!PC)
+		return FHitResult();
+
+	PC->GetPlayerViewPoint(CameraLocation, CameraRotation);
+
+	FVector TraceStart = CameraLocation;
+	FVector TraceEnd = TraceStart + (CameraRotation.Vector() * 10000.f);
+
+	FHitResult HitResult;
+	FCollisionQueryParams Params;
+
+
+	Params.AddIgnoredActor(Character);
+
+	World->LineTraceSingleByChannel(
+		HitResult,
+		TraceStart,
+		TraceEnd,
+		ECC_Visibility,
+		Params
+	);
+	DrawDebugLine(World, TraceStart + Character->GetActorForwardVector(), TraceEnd, FColor::Green, false, 1.f, 0, 1.f);
+	DrawDebugSphere(World, HitResult.ImpactPoint, 5.f, 12, FColor::Red, false, 1.f);
+
+	return HitResult;
 }
