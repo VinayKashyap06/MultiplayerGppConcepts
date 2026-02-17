@@ -72,4 +72,4 @@ void UPlayerGameplayAbility_WallRun::OnCapsuleComponentHit(UPrimitiveComponent* 
 void UPlayerGameplayAbility_WallRun::OnWallSideFound(bool bLeftSide)
 {
 
-};
+}

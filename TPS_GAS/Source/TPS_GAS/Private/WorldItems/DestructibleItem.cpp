@@ -11,13 +11,15 @@ ADestructibleItem::ADestructibleItem()
 	GeometryCollectionComp->SetSimulatePhysics(true);
 
 	GeometryCollectionComp->PutAllRigidBodiesToSleep();
-
+	bReplicates = true;
 }
 
 //Instead of applying impulse on root comp, apply it and fracture the sphere
 void ADestructibleItem::OnForceApplied(const AActor* PlayerInstigator, const float& ForceApplied)
 {
 	UE_LOG(LogTemp, Warning, TEXT("damage applied %f"), ForceApplied);
+	SetReplicateMovement(true);
+
 	FVector LocationToUse = GeometryCollectionComp->GetCenterOfMass();
 	//FVector LocationToUse = GetActorLocation();
 
