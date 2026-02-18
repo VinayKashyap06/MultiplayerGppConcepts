@@ -8,14 +8,17 @@
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnWallRunWallSideFoundDelegate, bool, bLeftSide);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnWallRunWallFinishedDelegate);
 
-
+//Reference - 
+// https://dev.epicgames.com/documentation/en-us/unreal-engine/gameplay-ability-tasks-in-unreal-engine
+// https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Plugins/GameplayAbilities/UAbilityTask
+//Use this ability task since this wall running is an ongoing behaviour
 UCLASS()
 class TPS_GAS_API UPlayerAbilityTask_WallRun : public UAbilityTask
 {
 	GENERATED_BODY()
 public:
 	UPROPERTY(BlueprintAssignable)
-	FOnWallRunWallFinishedDelegate OnFinished;
+	FOnWallRunWallFinishedDelegate OnWallRunFinished;
 	
 	UPROPERTY(BlueprintAssignable)
 	FOnWallRunWallSideFoundDelegate OnWallFound;

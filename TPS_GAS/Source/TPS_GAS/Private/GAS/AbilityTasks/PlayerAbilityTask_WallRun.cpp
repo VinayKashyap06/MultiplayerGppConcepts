@@ -29,7 +29,7 @@ void UPlayerAbilityTask_WallRun::Activate()
 		//found the wall we want to run on
 		if (ShouldBroadcastAbilityTaskDelegates()) //makes sure ability is actually active and then lets you call delegates
 		{
-			OnFinished.Broadcast();
+			OnWallRunFinished.Broadcast();
 		}
 
 		EndTask();
@@ -40,7 +40,7 @@ void UPlayerAbilityTask_WallRun::Activate()
 
 	CharacterOwner->Landed(OnWallHit);
 
-	CharacterOwner->SetActorLocation(OnWallHit.ImpactPoint + OnWallHit.ImpactNormal * 50.0f);
+	CharacterOwner->SetActorLocation(OnWallHit.ImpactPoint + OnWallHit.ImpactNormal * 80.0f);
 
 	CharacterMovement->SetMovementMode(EMovementMode::MOVE_Flying);
 }
@@ -65,18 +65,18 @@ void UPlayerAbilityTask_WallRun::TickTask(float DeltaTime)
 		//found the wall we want to run on
 		if (ShouldBroadcastAbilityTaskDelegates()) //makes sure ability is actually active and then lets you call delegates
 		{
-			OnFinished.Broadcast();
+			OnWallRunFinished.Broadcast();
 		}
 
 		EndTask();
 		return;
 	}
 
-	const FRotator DirectionToRotate = IsWallOnTheLeft(OnWallHit) ? FRotator(0.0f, -90.0f, 0.0f) : FRotator(0.0f, 90.0f, 0.0f);
-	const FVector WallRunDirection = DirectionToRotate.RotateVector(OnWallHit.ImpactNormal);
+	const FRotator DirectionToRotate = IsWallOnTheLeft(OnWallHit) ? FRotator(0.0f, -90.0f, 0.0f) : FRotator(0.0f, 90.0f, 0.0f); //flip to wall direction
+	const FVector WallRunDirection = DirectionToRotate.RotateVector(OnWallHit.ImpactNormal); //where are we running mate?
 
-	CharacterMovement->Velocity = WallRunDirection * 700.0f;
-	CharacterMovement->Velocity.Z = CharacterMovement->GetGravityZ() * DeltaTime;
+	CharacterMovement->Velocity = WallRunDirection * 700.0f; //TODO: Vinay make this a variable
+	CharacterMovement->Velocity.Z = 0.0f; //CharacterMovement->GetGravityZ() * DeltaTime;
 
 	CharacterOwner->SetActorRotation(WallRunDirection.Rotation());
 
@@ -100,7 +100,7 @@ bool UPlayerAbilityTask_WallRun::FindRunnableWall(FHitResult& OnWallHit)
 	
 	static auto const CVar = IConsoleManager::Get().FindConsoleVariable(TEXT("ShowDebugTraversal"));
 	const bool bShowTraversal = CVar->GetInt() > 0;
-	EDrawDebugTrace::Type DrawType = bShowTraversal ? EDrawDebugTrace::ForDuration : EDrawDebugTrace::None;
+	EDrawDebugTrace::Type DrawType = bShowTraversal ? EDrawDebugTrace::ForDuration : EDrawDebugTrace::None; //debug
 
 	//forward trace
 	if (UKismetSystemLibrary::LineTraceSingleForObjects(
