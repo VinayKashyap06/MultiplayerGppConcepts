@@ -1,0 +1,107 @@
+#pragma once
+
+#include <Kismet/GameplayStatics.h>
+#include <DrawDebugHelpers.h>
+#include "GameFramework/Character.h"
+#include "GameFramework/PlayerController.h"
+
+// <summary>
+///Get all actors in a radius, then check if they fall within a cone angle from the forward direction.
+/// </summary>
+/// <param name="World"></param>
+/// <param name="Origin"></param>
+/// <param name="Forward"></param>
+/// <param name="Radius"></param>
+/// <param name="HalfAngleDegrees"></param>
+/// <param name="ObjectTypes"></param>
+/// <param name="OutActors"></param>
+/// <returns></returns>
+TArray<AActor*> GetActorsInCone(
+	const UWorld* World,
+	FVector Origin,
+	FVector Forward,
+	float Radius,
+	float HalfAngleDegrees,
+	TArray<TEnumAsByte<EObjectTypeQuery>> ObjectTypes, //for sphere overlap
+	TArray<AActor*>& OutActors,
+	bool bEnableDebug
+)
+{
+	TArray<AActor*> OverlappingActors;
+	TArray<AActor*> ActorsToIgnore;
+
+	// Get all overlapping actors using sphere overlap
+	UKismetSystemLibrary::SphereOverlapActors(
+		World,
+		Origin,
+		Radius,
+		ObjectTypes,
+		AActor::StaticClass(),
+		ActorsToIgnore, // Actors to ignore
+		OverlappingActors
+	);
+
+	float CosThreshold = FMath::Cos(FMath::DegreesToRadians(HalfAngleDegrees)); //cos of half angles
+
+	for (AActor* Actor : OverlappingActors)
+	{
+		FVector ToTarget = (Actor->GetActorLocation() - Origin).GetSafeNormal(); //direction
+		float Dot = FVector::DotProduct(Forward.GetSafeNormal(), ToTarget); //dot product
+
+		if (Dot >= CosThreshold)
+		{
+			OutActors.Add(Actor);
+		}
+	}
+
+	if (bEnableDebug)
+	{
+		DrawDebugCone(
+			World, 
+			Origin, 
+			Forward,
+			Radius,
+			FMath::DegreesToRadians(HalfAngleDegrees),
+			FMath::DegreesToRadians(HalfAngleDegrees),
+			12,
+			FColor::Green,
+			false,
+			2.0f);
+	}
+
+	return OutActors;
+}
+
+
+FHitResult PerformLineTrace(const ACharacter* Character, const UWorld* World)
+{
+	FVector CameraLocation;
+	FRotator CameraRotation;
+
+	APlayerController* PC = Cast<APlayerController>(Character->GetController());
+	if (!PC)
+		return FHitResult();
+
+	PC->GetPlayerViewPoint(CameraLocation, CameraRotation);
+
+	FVector TraceStart = CameraLocation;
+	FVector TraceEnd = TraceStart + (CameraRotation.Vector() * 10000.f);
+
+	FHitResult HitResult;
+	FCollisionQueryParams Params;
+
+
+	Params.AddIgnoredActor(Character);
+
+	World->LineTraceSingleByChannel(
+		HitResult,
+		TraceStart,
+		TraceEnd,
+		ECC_Visibility,
+		Params
+	);
+	DrawDebugLine(World, TraceStart + Character->GetActorForwardVector(), TraceEnd, FColor::Green, false, 1.f, 0, 1.f);
+	DrawDebugSphere(World, HitResult.ImpactPoint, 5.f, 12, FColor::Red, false, 1.f);
+
+	return HitResult;
+}

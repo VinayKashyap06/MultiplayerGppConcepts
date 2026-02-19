@@ -62,6 +62,10 @@ class ATPS_GASCharacter : public ACharacter, public IAbilitySystemInterface
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* LookAction;
 
+	/** Force Attack Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* ForceAttackAction;
+
 public:
 	
 	ATPS_GASCharacter(const FObjectInitializer& ObjectInitializer);
@@ -82,6 +86,8 @@ protected:
 
 	void OnSprintStarted(const FInputActionValue& Value);
 	void OnSprintStopped(const FInputActionValue& Value);
+
+	void OnForceAttack(const FInputActionValue& Value);
 
 
 	void GiveAbilities();
@@ -125,6 +131,7 @@ protected:
 	virtual void BeginPlay();
 
 	virtual void PostInitializeComponents() override;
+	virtual void Tick(float DeltaTime) override;
 
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
@@ -148,9 +155,12 @@ public:
 	FORCEINLINE class UPlayerAudioComponent* GetPlayerAudioComp() const { return PlayerAudioComponent; }
 
 	void SetCrouchedCamera(bool set);
-
-
 	void OnMaxMovementSpeedChanged(const FOnAttributeChangeData& Data);
+
+	UFUNCTION(BlueprintNativeEvent, Category = "Abilities")
+	FVector GetPlayerCrosshairAttackLocation();
+
+	virtual FVector GetPlayerCrosshairAttackLocation_Implementation();
 
 protected:
 	UFUNCTION()
@@ -175,11 +185,26 @@ protected:
 	FGameplayTagContainer SprintTags; //to remove/activate all sprint tags
 
 	UPROPERTY(EditDefaultsOnly)
-	TSubclassOf<UGameplayEffect> CrouchStateEffect;
+	FGameplayTagContainer ForceAttackTag; //to remove/activate all force attack tags, todo add a combat actor component to use these
 
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<UGameplayEffect> CrouchStateEffect;
 
 	//Delegates
 	FDelegateHandle MaxMovementSpeedChangedDelegateHandle;
+
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "UI")
+	TSubclassOf<class UCrosshairUserWidget> CrosshairWidgetClass;
+
+private:
+	bool bAbilitiesGiven;
+	//Simple crosshair
+	class UCrosshairUserWidget* CrosshairCreatedWidget;
+
+	FVector CameraLocation;
+	FRotator CameraRotation;
+
+	void PerformLineTrace();
 
 };
 

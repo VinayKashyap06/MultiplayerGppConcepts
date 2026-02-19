@@ -20,7 +20,7 @@
 #include "Player/PlayerMovementComponent.h"
 #include "Player/PlayerAudioComponent.h"
 #include "Player/PlayerMotionWarpingComponent.h"
-
+#include "UI/CrosshairUserWidget.h"
 #include "Net/UnrealNetwork.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
@@ -90,6 +90,15 @@ void ATPS_GASCharacter::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
+
+	if (CrosshairWidgetClass)
+	{
+		CrosshairCreatedWidget = CreateWidget<UCrosshairUserWidget>(GetWorld(), CrosshairWidgetClass);
+		if (CrosshairCreatedWidget)
+		{
+			CrosshairCreatedWidget->AddToViewport();
+		}
+	}
 }
 
 void ATPS_GASCharacter::PostInitializeComponents()
@@ -100,6 +109,12 @@ void ATPS_GASCharacter::PostInitializeComponents()
 	{
 		SetCharacterData(CharacterDataAsset->CharacterData);
 	}
+}
+
+void ATPS_GASCharacter::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	//PerformLineTrace();
 }
 
 void ATPS_GASCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -152,12 +167,14 @@ void ATPS_GASCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Started, this, &ATPS_GASCharacter::OnSprintStarted);
 		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Completed, this, &ATPS_GASCharacter::OnSprintStopped);
 
-
 		// Moving
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ATPS_GASCharacter::Move);
 
 		// Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ATPS_GASCharacter::Look);
+
+		//Force Attack
+		EnhancedInputComponent->BindAction(ForceAttackAction, ETriggerEvent::Triggered, this, &ATPS_GASCharacter::OnForceAttack);
 	}
 	else
 	{
@@ -204,13 +221,6 @@ void ATPS_GASCharacter::Look(const FInputActionValue& Value)
 //GAS + input
 void ATPS_GASCharacter::OnJump(const FInputActionValue& Value)
 {
-	//SEND EVENT, observe this event in ability
-	FGameplayEventData NewPayload;
-	NewPayload.EventTag = JumpEventTag;
-	NewPayload.Instigator = this;
-	UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(this, JumpEventTag, NewPayload);
-
-
 	//Calling movement component's traversal to allow motion warping
 	if(PlayerAbilitySystemComp)
 		PlayerMovementComponent->TryTraversal(PlayerAbilitySystemComp);
@@ -271,6 +281,18 @@ void ATPS_GASCharacter::OnSprintStopped(const FInputActionValue& Value)
 	}
 }
 
+void ATPS_GASCharacter::OnForceAttack(const FInputActionValue& Value)
+{
+	if (PlayerAbilitySystemComp)
+	{
+		if (!PlayerAbilitySystemComp->HasMatchingGameplayTag(ForceAttackTag.First()))
+		{
+			PlayerAbilitySystemComp->TryActivateAbilitiesByTag(ForceAttackTag, true);
+			UE_LOG(LogTemp, Warning, TEXT("force attack given"));
+
+		}
+	}
+}
 
 ////Gameplay Abilities
 
@@ -283,6 +305,7 @@ void ATPS_GASCharacter::GiveAbilities()
 			PlayerAbilitySystemComp->GiveAbility(FGameplayAbilitySpec(DefaultAbility));
 		}
 		UE_LOG(LogTemp, Warning, TEXT("abilities given"));
+		bAbilitiesGiven = true;
 	}
 }
 
@@ -307,9 +330,12 @@ void ATPS_GASCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
 
-	PlayerAbilitySystemComp->InitAbilityActorInfo(this, this);
-	GiveAbilities();
-	ApplyStartupEffects();
+	if (!bAbilitiesGiven)
+	{
+		PlayerAbilitySystemComp->InitAbilityActorInfo(this, this);
+		GiveAbilities();
+		ApplyStartupEffects();
+	}
 
 }
 
@@ -317,6 +343,7 @@ void ATPS_GASCharacter::PossessedBy(AController* NewController)
 void ATPS_GASCharacter::OnRep_PlayerState()
 {
 	Super::OnRep_PlayerState();
+
 	PlayerAbilitySystemComp->InitAbilityActorInfo(this, this);
 }
 
@@ -330,6 +357,11 @@ void ATPS_GASCharacter::OnMaxMovementSpeedChanged(const FOnAttributeChangeData& 
 	GetCharacterMovement()->MaxWalkSpeed = Data.NewValue;
 }
 
+FVector ATPS_GASCharacter::GetPlayerCrosshairAttackLocation_Implementation()
+{
+	 return CameraLocation + FVector(0.0f, 50.0f, 0.0f); 
+}
+
 void ATPS_GASCharacter::OnRep_CharacterData()
 {
 	InitFromCharacterData(CharacterData, true);
@@ -338,4 +370,30 @@ void ATPS_GASCharacter::OnRep_CharacterData()
 void ATPS_GASCharacter::InitFromCharacterData(const FCharacterData& InCharacterData, bool bFromReplication)
 {
 
+}
+
+void ATPS_GASCharacter::PerformLineTrace()
+{
+	APlayerController* PC = Cast<APlayerController>(GetController());
+	if (!PC)
+		return;
+	PC->GetPlayerViewPoint(CameraLocation, CameraRotation);
+
+	FVector TraceStart = CameraLocation;
+	FVector TraceEnd = TraceStart + (CameraRotation.Vector() * 10000.f);
+
+	FHitResult HitResult;
+	FCollisionQueryParams Params;
+	Params.AddIgnoredActor(this);
+
+	GetWorld()->LineTraceSingleByChannel(
+		HitResult,
+		TraceStart,
+		TraceEnd,
+		ECC_Visibility,
+		Params
+	);
+	
+	DrawDebugLine(GetWorld(), TraceStart + GetActorForwardVector(), TraceEnd, FColor::Green, false, 1.f, 0, 1.f);
+	DrawDebugSphere(GetWorld(), HitResult.ImpactPoint, 5.f, 12, FColor::Red, false, 1.f);
 }

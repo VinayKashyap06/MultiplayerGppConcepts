@@ -1,7 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
-#include "Player/PlayerMovementComponent.h"
 #include "Player/PlayerMovementComponent.h"
 #include "Abilities/GameplayAbility.h"
 #include "GAS/PlayerAbilitySystemComponent.h"
@@ -23,7 +19,7 @@ bool UPlayerMovementComponent::TryTraversal(UPlayerAbilitySystemComponent* Abili
 		{
 			FGameplayAbilitySpec* Spec = AbilitySystemComp->FindAbilitySpecFromClass(ability);
 
-			if (Spec && Spec->IsActive()) //perform commit check, and then activate ability, could be either vault or jump or whatever was ordered
+			if (Spec && Spec->IsActive()) //performed commit check, and then activate ability, could be either vault or jump or whatever was ordered
 			{
 				return true;
 			}
