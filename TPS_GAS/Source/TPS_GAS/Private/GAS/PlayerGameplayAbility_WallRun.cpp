@@ -5,6 +5,7 @@
 #include <TPS_GAS/TPS_GASCharacter.h>
 #include <GAS/PlayerAbilitySystemComponent.h>
 #include <GAS/AbilityTasks/PlayerAbilityTask_WallRun.h>
+#include <Kismet/KismetSystemLibrary.h>
 
 UPlayerGameplayAbility_WallRun::UPlayerGameplayAbility_WallRun()
 {
@@ -74,24 +75,13 @@ void UPlayerGameplayAbility_WallRun::OnCapsuleComponentHit(UPrimitiveComponent* 
 	UAbilitySystemComponent* AbilitySystemComp = GetAbilitySystemComponentFromActorInfo();
 	if (AbilitySystemComp)
 	{
-		const FVector Normal = Hit.ImpactNormal;
-		bool bIsFloor = true;
-
-		/*if (Hit.PhysMaterial.IsValid())
+		bool bIsWall = OtherActor->ActorHasTag("RunnableWall");
+		if (bIsWall)
 		{
-			EPhysicalSurface Surface =
-				UPhysicalMaterial::DetermineSurfaceType(Hit.PhysMaterial.Get());
-
-			bIsFloor = Surface == SurfaceType_Default;
-		}*/
-		float Dot = FVector::DotProduct(Hit.ImpactNormal, FVector::UpVector);
-		bool bIsWall = Dot < 0.3f && Dot > -0.3f; // near vertical
-
-		////if (!bIsFloor)
-		//if (bIsWall)
-		//{
-		//}
+			//check if the player is standing on top of the wall. then avoid the activation of ability
 			AbilitySystemComp->TryActivateAbility(GetCurrentAbilitySpecHandle());
+		}
+		
 	}
 }
 
@@ -118,8 +108,11 @@ void UPlayerGameplayAbility_WallRun::EndAbility(const FGameplayAbilitySpecHandle
 {
 	if (IsValid(WallRunTask))
 	{
+		WallRunTask->OnWallRunFinished.RemoveDynamic(this, &ThisClass::K2_EndAbility);
+		WallRunTask->OnWallFound.RemoveDynamic(this, &ThisClass::OnWallSideFound);
 		WallRunTask->EndTask();
 	}
+
 
 	UAbilitySystemComponent* AbilitySystemComp = GetAbilitySystemComponentFromActorInfo();
 	if (AbilitySystemComp)
