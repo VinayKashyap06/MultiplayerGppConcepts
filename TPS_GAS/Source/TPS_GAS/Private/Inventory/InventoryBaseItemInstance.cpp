@@ -2,6 +2,7 @@
 
 
 #include "Inventory/InventoryBaseItemInstance.h"
+#include "Net/UnrealNetwork.h"
 
 
 void UInventoryBaseItemInstance::OnRep_IsEquipped()
@@ -12,4 +13,11 @@ void UInventoryBaseItemInstance::OnRep_IsEquipped()
 void UInventoryBaseItemInstance::Init(TSubclassOf<UItemStaticData> InItemStaticDataClass)
 {
 	ItemStaticDataClass = InItemStaticDataClass;
+}
+
+void UInventoryBaseItemInstance::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(UInventoryBaseItemInstance, bIsEquipped);
 }

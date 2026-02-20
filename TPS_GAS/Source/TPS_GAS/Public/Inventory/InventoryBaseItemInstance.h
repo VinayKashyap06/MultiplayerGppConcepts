@@ -17,6 +17,8 @@ public:
 
 	virtual void Init(TSubclassOf<UItemStaticData> InItemStaticDataClass);
 
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+
 	FORCEINLINE virtual bool IsSupportedForNetworking() const override { return true; }
 
 	UPROPERTY(Replicated)
