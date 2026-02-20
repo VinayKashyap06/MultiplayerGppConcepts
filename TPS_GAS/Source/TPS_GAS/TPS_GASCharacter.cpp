@@ -371,7 +371,7 @@ void ATPS_GASCharacter::InitFromCharacterData(const FCharacterData& InCharacterD
 {
 
 }
-
+//Crosshair
 void ATPS_GASCharacter::PerformLineTrace()
 {
 	APlayerController* PC = Cast<APlayerController>(GetController());
@@ -380,7 +380,7 @@ void ATPS_GASCharacter::PerformLineTrace()
 	PC->GetPlayerViewPoint(CameraLocation, CameraRotation);
 
 	FVector TraceStart = CameraLocation;
-	FVector TraceEnd = TraceStart + (CameraRotation.Vector() * 10000.f);
+	FVector TraceEnd = TraceStart + (CameraRotation.Vector() * 5000.f);
 
 	FHitResult HitResult;
 	FCollisionQueryParams Params;

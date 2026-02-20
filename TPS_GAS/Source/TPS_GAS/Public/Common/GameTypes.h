@@ -45,3 +45,16 @@ enum class E_FootIdentifier : uint8
 	Left UMETA(DisplayName = "Left"),
 	Right UMETA(DisplayName = "Right")
 };
+
+
+//Inventory
+UCLASS(BlueprintType, Blueprintable)
+class UItemStaticData : public UObject
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	FName Name;
+
+};

@@ -5,6 +5,10 @@
 #include "GameFramework/Character.h"
 #include "GameFramework/PlayerController.h"
 
+
+
+//Currently this file is used by Force Attack, will see if it's required or not later
+
 // <summary>
 ///Get all actors in a radius, then check if they fall within a cone angle from the forward direction.
 /// </summary>

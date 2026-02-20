@@ -79,7 +79,7 @@ void UPlayerAbilityTask_WallRun::Activate()
 	CharacterMovement->SetPlaneConstraintNormal(OnWallHit.ImpactNormal);
 
 	// Reduce gravity instead of disabling it completely
-	CharacterMovement->GravityScale = 0.2f;
+	CharacterMovement->GravityScale = 0.4f;
 }
 
 
