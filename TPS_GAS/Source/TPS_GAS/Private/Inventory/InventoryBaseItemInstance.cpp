@@ -3,6 +3,7 @@
 
 #include "Inventory/InventoryBaseItemInstance.h"
 #include "Net/UnrealNetwork.h"
+#include "Common/TPSGasStatics.h"
 
 
 void UInventoryBaseItemInstance::OnRep_IsEquipped()
@@ -20,4 +21,9 @@ void UInventoryBaseItemInstance::GetLifetimeReplicatedProps(TArray<FLifetimeProp
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
 	DOREPLIFETIME(UInventoryBaseItemInstance, bIsEquipped);
+}
+
+const UItemStaticData* UInventoryBaseItemInstance::GetItemStaticData() const
+{
+	return UTPSGasStatics::GetItemStaticData(ItemStaticDataClass);
 }

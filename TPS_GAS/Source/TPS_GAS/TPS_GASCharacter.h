@@ -22,6 +22,7 @@ class UGameplayEffect;
 class UGameplayAbility;
 class UPlayerMotionWarpingComponent;
 class UPlayerMovementComponent;
+class UPlayerInventoryComponent;
 struct FInputActionValue;
 
 
@@ -113,7 +114,7 @@ protected:
 	UPROPERTY(Replicatedusing = OnRep_CharacterData)
 	FCharacterData CharacterData;
 
-	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Audio")
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Player Components")
 	class UPlayerAudioComponent* PlayerAudioComponent;
 
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Movement")
@@ -121,6 +122,9 @@ protected:
 	
 	//UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Movement")
 	UPlayerMotionWarpingComponent* PlayerMotionWarpingComponent;
+
+	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Player Components")
+	UPlayerInventoryComponent* PlayerInventoryComp;
 
 protected:
 
@@ -195,6 +199,7 @@ protected:
 
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "UI")
 	TSubclassOf<class UCrosshairUserWidget> CrosshairWidgetClass;
+	
 
 private:
 	bool bAbilitiesGiven;

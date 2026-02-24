@@ -22,6 +22,7 @@
 #include "Player/PlayerMotionWarpingComponent.h"
 #include "UI/CrosshairUserWidget.h"
 #include "Net/UnrealNetwork.h"
+#include "Inventory/PlayerInventoryComponent.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -75,6 +76,9 @@ ATPS_GASCharacter::ATPS_GASCharacter(const FObjectInitializer& ObjectInitializer
 	PlayerAudioComponent = CreateDefaultSubobject<UPlayerAudioComponent>(TEXT("PlayerAudioComp"));
 	PlayerMovementComponent = Cast<UPlayerMovementComponent>(GetMovementComponent());
 	PlayerMotionWarpingComponent = CreateDefaultSubobject<UPlayerMotionWarpingComponent>(TEXT("PlayerMotionWarpingComp"));
+	
+	PlayerInventoryComp = CreateDefaultSubobject<UPlayerInventoryComponent>(TEXT("PlayerInventoryComp"));
+	PlayerInventoryComp->SetIsReplicated(true);
 }
 
 void ATPS_GASCharacter::BeginPlay()
@@ -114,7 +118,7 @@ void ATPS_GASCharacter::PostInitializeComponents()
 void ATPS_GASCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	//PerformLineTrace();
+	//PerformLineTrace(); //remove this no longer needed
 }
 
 void ATPS_GASCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -122,6 +126,7 @@ void ATPS_GASCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Ou
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
 	DOREPLIFETIME(ATPS_GASCharacter, CharacterData);
+	DOREPLIFETIME(ATPS_GASCharacter, PlayerInventoryComp);
 }
 
 bool ATPS_GASCharacter::ApplyGameplayEffectToSelf(TSubclassOf<UGameplayEffect> Effect, FGameplayEffectContextHandle InEffectContext)
@@ -371,7 +376,10 @@ void ATPS_GASCharacter::InitFromCharacterData(const FCharacterData& InCharacterD
 {
 
 }
+
+
 //Crosshair
+//this has already been shifted
 void ATPS_GASCharacter::PerformLineTrace()
 {
 	APlayerController* PC = Cast<APlayerController>(GetController());

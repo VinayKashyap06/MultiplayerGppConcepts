@@ -45,14 +45,14 @@ void UPlayerGameplayAbility_WallRun::OnRemoveAbility(const FGameplayAbilityActor
 	Super::OnRemoveAbility(ActorInfo, Spec);
 }
 
-bool UPlayerGameplayAbility_WallRun::CanActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayTagContainer* SourceTags, const FGameplayTagContainer* TargetTags, OUT FGameplayTagContainer* OptionalRelevantTags)
+bool UPlayerGameplayAbility_WallRun::CanActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayTagContainer* SourceTags, const FGameplayTagContainer* TargetTags, OUT FGameplayTagContainer* OptionalRelevantTags) const
 {
 	if (!Super::CanActivateAbility(Handle, ActorInfo, SourceTags, TargetTags, OptionalRelevantTags))
 	{
 		return false;
 	}
 
-	ATPS_GASCharacter* characterAvatar = GetPlayerCharacterFromActorInfo();
+	const ATPS_GASCharacter* characterAvatar = GetPlayerCharacterFromActorInfo();
 
 	//we can only activate it if character is valid and not moving on ground
 	return characterAvatar && !characterAvatar->GetCharacterMovement()->IsMovingOnGround();

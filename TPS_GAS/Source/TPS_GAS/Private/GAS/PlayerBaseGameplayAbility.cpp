@@ -86,7 +86,7 @@ void UPlayerBaseGameplayAbility::EndAbility(const FGameplayAbilitySpecHandle Han
 	Super::EndAbility(Handle, ActorInfo, ActivationInfo, bReplicateEndAbility, bWasCancelled);
 }
 
-ATPS_GASCharacter* UPlayerBaseGameplayAbility::GetPlayerCharacterFromActorInfo()
+ATPS_GASCharacter* UPlayerBaseGameplayAbility::GetPlayerCharacterFromActorInfo() const
 {
 	return Cast<ATPS_GASCharacter>(GetAvatarActorFromActorInfo());
 }

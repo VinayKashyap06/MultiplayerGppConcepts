@@ -27,7 +27,7 @@ struct FInventoryList : public FFastArraySerializer
 	GENERATED_BODY()
 protected:
 	UPROPERTY()
-	TArray<FInventoryListItem> Items;
+	TArray<FInventoryListItem> Items; //Make sure to only have 1 array within FastArraySerializer
 
 public:
 	bool NetDeltaSerialize(FNetDeltaSerializeInfo& DeltaParams)
@@ -38,7 +38,11 @@ public:
 	void AddItem(TSubclassOf<UItemStaticData> InItemStaticDataClass);
 	void RemoveItem(TSubclassOf<UItemStaticData> InItemStaticDataClass);
 
+	FORCEINLINE TArray<FInventoryListItem>& GetItemsRef() { return Items; }
 };
+
+
+//This is important to let our custom struct serialized properly
 
 template<>
 struct TStructOpsTypeTraits<FInventoryList> : public TStructOpsTypeTraitsBase2<FInventoryList>

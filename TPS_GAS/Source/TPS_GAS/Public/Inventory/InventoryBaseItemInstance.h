@@ -21,6 +21,10 @@ public:
 
 	FORCEINLINE virtual bool IsSupportedForNetworking() const override { return true; }
 
+
+	UFUNCTION(BlueprintCallable)
+	const UItemStaticData* GetItemStaticData() const;
+
 	UPROPERTY(Replicated)
 	TSubclassOf<UItemStaticData> ItemStaticDataClass;
 

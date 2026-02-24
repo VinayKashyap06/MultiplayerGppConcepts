@@ -12,7 +12,7 @@ void FInventoryList::AddItem(TSubclassOf<UItemStaticData> InItemStaticDataClass)
 	Item.ItemInstance = NewObject<UInventoryBaseItemInstance>();
 	Item.ItemInstance->Init(InItemStaticDataClass);
 	
-	MarkItemDirty(Item);
+	MarkItemDirty(Item); //marking item dirty is important for fast array serializer
 }
 
 void FInventoryList::RemoveItem(TSubclassOf<UItemStaticData> InItemStaticDataClass)
@@ -24,7 +24,7 @@ void FInventoryList::RemoveItem(TSubclassOf<UItemStaticData> InItemStaticDataCla
 		if (Item.ItemInstance && Item.ItemInstance->IsA(InItemStaticDataClass))
 		{
 			itemItr.RemoveCurrent();
-			MarkArrayDirty();
+			MarkArrayDirty(); //marking array dirty is important for fast array serializer, to let it work it's magic
 			break;
 		}
 		
