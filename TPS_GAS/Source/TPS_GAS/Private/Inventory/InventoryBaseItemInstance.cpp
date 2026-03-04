@@ -48,6 +48,14 @@ void UInventoryBaseItemInstance::OnUnequipped()
 	}
 }
 
+void UInventoryBaseItemInstance::OnDropItem()
+{
+	if (ItemActorInstance)
+	{
+		ItemActorInstance->OnDropped();
+	}
+}
+
 void UInventoryBaseItemInstance::Init(TSubclassOf<UItemStaticData> InItemStaticDataClass)
 {
 	ItemStaticDataClass = InItemStaticDataClass;

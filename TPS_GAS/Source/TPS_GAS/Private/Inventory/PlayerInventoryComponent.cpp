@@ -127,6 +127,17 @@ void UPlayerInventoryComponent::UnequipItem()
 	}
 }
 
+void UPlayerInventoryComponent::DropItem()
+{
+	if (GetOwner()->HasAuthority())
+	{
+		if (IsValid(CurrentEquippedItem))
+		{
+			CurrentEquippedItem->OnDropItem();
+		}
+	}
+}
+
 UInventoryBaseItemInstance* UPlayerInventoryComponent::GetEquippedItem() const
 {
 	return CurrentEquippedItem;
@@ -144,7 +155,7 @@ void UPlayerInventoryComponent::EquipForceAttackItem()
 	}
 	else
 	{
-		CurrentEquippedItem->OnUnequipped();
+		CurrentEquippedItem->OnDropItem();
 		CurrentEquippedItem = nullptr;
 	}
 }

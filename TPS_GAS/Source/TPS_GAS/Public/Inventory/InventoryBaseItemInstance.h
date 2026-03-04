@@ -35,6 +35,8 @@ public:
 	virtual void OnEquipped(AActor* InOwner);
 	virtual void OnUnequipped();
 
+	virtual void OnDropItem();
+
 protected:
 
 	UPROPERTY(Replicated)

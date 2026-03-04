@@ -33,6 +33,9 @@ public:
 	void EquipItem(TSubclassOf<UItemStaticData> InItemStaticDataClass);
 	UFUNCTION(BlueprintCallable)
 	void UnequipItem();
+	
+	UFUNCTION(BlueprintCallable)
+	void DropItem();
 
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	UInventoryBaseItemInstance* GetEquippedItem() const;

@@ -4,10 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Common/GameTypes.h"
+
 #include "InventoryItemActor.generated.h"
 
 
 class UInventoryBaseItemInstance;
+class USphereComponent;
 
 UCLASS()
 class TPS_GAS_API AInventoryItemActor : public AActor
@@ -26,6 +29,15 @@ protected:
 
 	UPROPERTY(Replicated)
 	UInventoryBaseItemInstance* ItemInstance = nullptr;
+
+	UPROPERTY(EditDefaultsOnly, Replicated)
+	UStaticMeshComponent* StaticMeshComp;
+
+	UPROPERTY(EditDefaultsOnly, Replicated)
+	E_ItemState ItemState = E_ItemState::None;
+
+	UPROPERTY(EditDefaultsOnly, Replicated)
+	USphereComponent* SphereComp;
 
 
 public:

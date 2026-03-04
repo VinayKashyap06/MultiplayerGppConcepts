@@ -42,7 +42,7 @@ struct FCharacterAnimationData
 UENUM(BlueprintType)
 enum class E_FootIdentifier : uint8
 {
-	Left UMETA(DisplayName = "Left"),
+	Left  UMETA(DisplayName = "Left"),
 	Right UMETA(DisplayName = "Right")
 };
 
@@ -67,4 +67,12 @@ public:
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	FTransform SpawnTransform;
+};
+
+UENUM(BlueprintType)
+enum class E_ItemState : uint8
+{
+	None     UMETA(DisplayName = "None"),
+	Equipped UMETA(DisplayName = "Equipped"),
+	Dropped  UMETA(DisplayName = "Dropped")
 };

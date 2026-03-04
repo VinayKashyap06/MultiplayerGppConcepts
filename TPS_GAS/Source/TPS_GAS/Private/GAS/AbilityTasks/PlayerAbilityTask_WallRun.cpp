@@ -17,33 +17,6 @@ UPlayerAbilityTask_WallRun* UPlayerAbilityTask_WallRun::CreateWallRunTask(UGamep
 	return WallRunTask;
 }
 
-//void UPlayerAbilityTask_WallRun::Activate()
-//{
-//	Super::Activate();
-//
-//	FHitResult OnWallHit;
-//
-//	if (!FindRunnableWall(OnWallHit)) 
-//	{
-//		//no wall found we want to run on
-//		if (ShouldBroadcastAbilityTaskDelegates()) //makes sure ability is actually active and then lets you call delegates
-//		{
-//			OnWallRunFinished.Broadcast();
-//		}
-//		UE_LOG(LogTemp, Warning, TEXT("ENDING TASK from activate"));
-//		EndTask();
-//		return;
-//	}
-//
-//	OnWallFound.Broadcast(IsWallOnTheLeft(OnWallHit));
-//
-//	//CharacterOwner->Landed(OnWallHit);
-//
-//	CharacterOwner->SetActorLocation(OnWallHit.ImpactPoint + OnWallHit.ImpactNormal * 80.0f);
-//
-//	CharacterMovement->SetMovementMode(EMovementMode::MOVE_Custom);
-//}
-
 
 void UPlayerAbilityTask_WallRun::Activate()
 {
@@ -63,13 +36,6 @@ void UPlayerAbilityTask_WallRun::Activate()
 	}
 
 	OnWallFound.Broadcast(IsWallOnTheLeft(OnWallHit));
-
-	// CharacterOwner->Landed(OnWallHit);
-
-	// Snap slightly toward wall (safer offset)
-	/*CharacterOwner->SetActorLocation(
-		OnWallHit.ImpactPoint + OnWallHit.ImpactNormal * 60.0f
-	);*/
 
 	CharacterMovement->SetMovementMode(MOVE_Falling);
 
