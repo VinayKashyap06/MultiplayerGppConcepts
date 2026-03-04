@@ -22,13 +22,32 @@ public:
 
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-	UPROPERTY(Replicated)
-	FInventoryList InventoryList;
+	//List update
+	UFUNCTION(BlueprintCallable)
+	void AddItem(TSubclassOf<UItemStaticData> InItemStaticDataClass);
+	UFUNCTION(BlueprintCallable)
+	void RemoveItem(TSubclassOf<UItemStaticData> InItemStaticDataClass);
+	
+	//Item instance within llist update
+	UFUNCTION(BlueprintCallable)
+	void EquipItem(TSubclassOf<UItemStaticData> InItemStaticDataClass);
+	UFUNCTION(BlueprintCallable)
+	void UnequipItem();
 
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	UInventoryBaseItemInstance* GetEquippedItem() const;
 
+	void EquipForceAttackItem();
 protected:
 
 	UPROPERTY(EditDefaultsOnly)
-	TArray<TSubclassOf<UItemStaticData>> DefaultItems;
+	TArray<TSubclassOf<UItemStaticData>> DefaultItems; //default items to provide
+
+	UPROPERTY(Replicated)
+	FInventoryList InventoryList; //replicated list which is marked dirty once modified
+
+	UPROPERTY(Replicated)
+	UInventoryBaseItemInstance* CurrentEquippedItem = nullptr;
+
 
 };

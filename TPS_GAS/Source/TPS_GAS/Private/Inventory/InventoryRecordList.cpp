@@ -24,7 +24,7 @@ void FInventoryList::RemoveItem(TSubclassOf<UItemStaticData> InItemStaticDataCla
 		if (Item.ItemInstance && Item.ItemInstance->IsA(InItemStaticDataClass))
 		{
 			itemItr.RemoveCurrent();
-			MarkArrayDirty(); //marking array dirty is important for fast array serializer, to let it work it's magic
+			MarkArrayDirty(); //marking array dirty is important for fast array serializer, to let it work it's black box magic that i have to read more on
 			break;
 		}
 		

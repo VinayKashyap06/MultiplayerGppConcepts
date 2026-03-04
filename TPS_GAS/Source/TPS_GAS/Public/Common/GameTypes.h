@@ -48,6 +48,8 @@ enum class E_FootIdentifier : uint8
 
 
 //Inventory
+class AInventoryItemActor;
+
 UCLASS(BlueprintType, Blueprintable)
 class UItemStaticData : public UObject
 {
@@ -57,4 +59,12 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	FName Name;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TSubclassOf<AInventoryItemActor> ItemActorClass;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	FName SocketToAttachTo = NAME_None;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	FTransform SpawnTransform;
 };

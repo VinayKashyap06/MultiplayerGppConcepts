@@ -43,6 +43,7 @@ public:
 
 
 //This is important to let our custom struct serialized properly
+//basically with net delta serializer lets fast serialization possible, helps with GAS architecture 
 
 template<>
 struct TStructOpsTypeTraits<FInventoryList> : public TStructOpsTypeTraitsBase2<FInventoryList>

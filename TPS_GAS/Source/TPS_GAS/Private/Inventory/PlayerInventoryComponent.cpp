@@ -18,7 +18,7 @@ UPlayerInventoryComponent::UPlayerInventoryComponent()
 	PrimaryComponentTick.bCanEverTick = true;
 	bWantsInitializeComponent = true;
 	//TODO : Vinay maybe set Dormancy too? too much for this proj?
-	//SetIsReplicated(true);
+	//SetIsReplicated(true); <- set via Character class
 }
 
 void UPlayerInventoryComponent::InitializeComponent()
@@ -29,8 +29,8 @@ void UPlayerInventoryComponent::InitializeComponent()
 	{
 		for (auto Item : DefaultItems)
 		{
-			InventoryList.AddItem(Item);
-		}
+			InventoryList.AddItem(Item); //add default items
+		}	
 	}
 
 }
@@ -38,7 +38,7 @@ void UPlayerInventoryComponent::InitializeComponent()
 bool UPlayerInventoryComponent::ReplicateSubobjects(UActorChannel* Channel, FOutBunch* Bunch, FReplicationFlags* RepFlags)
 {
 	bool HasWrittenSomething = Super::ReplicateSubobjects(Channel, Bunch, RepFlags);
-
+	//Replicate existing item instances within the replicated list
 	for (FInventoryListItem& Item : InventoryList.GetItemsRef())
 	{
 		UInventoryBaseItemInstance* ItemInstance = Item.ItemInstance;
@@ -65,7 +65,7 @@ void UPlayerInventoryComponent::TickComponent(float DeltaTime, ELevelTick TickTy
 			
 			if (IsValid(ItemInstance) && IsValid(ItemStaticData))
 			{
-				if (GEngine)
+				if (GEngine) //printing item name for now
 				{
 					GEngine->AddOnScreenDebugMessage(
 						-1, 
@@ -86,5 +86,65 @@ void UPlayerInventoryComponent::GetLifetimeReplicatedProps(TArray<FLifetimePrope
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
-	DOREPLIFETIME(UPlayerInventoryComponent, InventoryList);
+	DOREPLIFETIME(UPlayerInventoryComponent, InventoryList); //inventory list to be replicated
+	DOREPLIFETIME(UPlayerInventoryComponent, CurrentEquippedItem); //current item
+}
+
+void UPlayerInventoryComponent::AddItem(TSubclassOf<UItemStaticData> InItemStaticDataClass)
+{
+	InventoryList.AddItem(InItemStaticDataClass);
+}
+
+void UPlayerInventoryComponent::RemoveItem(TSubclassOf<UItemStaticData> InItemStaticDataClass)
+{
+	InventoryList.RemoveItem(InItemStaticDataClass);
+}
+
+void UPlayerInventoryComponent::EquipItem(TSubclassOf<UItemStaticData> InItemStaticDataClass)
+{
+	if (GetOwner()->HasAuthority())
+	{
+		for (auto Item : InventoryList.GetItemsRef())
+		{
+			if (Item.ItemInstance->ItemStaticDataClass == InItemStaticDataClass)
+			{
+				CurrentEquippedItem = Item.ItemInstance;
+				CurrentEquippedItem->OnEquipped(GetOwner());
+				break;
+			}
+		}
+	}
+}
+
+void UPlayerInventoryComponent::UnequipItem()
+{
+	if (GetOwner()->HasAuthority())
+	{
+		if (IsValid(CurrentEquippedItem))
+		{
+			CurrentEquippedItem->OnUnequipped();
+		}
+	}
+}
+
+UInventoryBaseItemInstance* UPlayerInventoryComponent::GetEquippedItem() const
+{
+	return CurrentEquippedItem;
+}
+
+//This is a test function to check equip/unequip for now
+void UPlayerInventoryComponent::EquipForceAttackItem()
+{
+	if (!CurrentEquippedItem)
+	{
+		if (InventoryList.GetItemsRef().Num() > 0)
+		{
+			EquipItem(InventoryList.GetItemsRef()[0].ItemInstance->ItemStaticDataClass);
+		}
+	}
+	else
+	{
+		CurrentEquippedItem->OnUnequipped();
+		CurrentEquippedItem = nullptr;
+	}
 }

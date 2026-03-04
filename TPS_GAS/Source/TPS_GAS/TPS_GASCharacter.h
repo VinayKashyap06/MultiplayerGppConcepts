@@ -123,7 +123,7 @@ protected:
 	//UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Movement")
 	UPlayerMotionWarpingComponent* PlayerMotionWarpingComponent;
 
-	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Player Components")
+	UPROPERTY(BlueprintReadWrite, Replicated, EditDefaultsOnly, Category = "Player Components")
 	UPlayerInventoryComponent* PlayerInventoryComp;
 
 protected:

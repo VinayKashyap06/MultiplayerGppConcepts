@@ -297,6 +297,11 @@ void ATPS_GASCharacter::OnForceAttack(const FInputActionValue& Value)
 
 		}
 	}
+
+	if (PlayerInventoryComp)
+	{
+		PlayerInventoryComp->EquipForceAttackItem();
+	}
 }
 
 ////Gameplay Abilities
